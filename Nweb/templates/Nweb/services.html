@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Services</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+
+
+        /* Navbar */
+        #navbar {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10px;
+            background-color: transparent;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1000;
+        }
+
+        #navbar img.navbar-image {
+            height: 50px;
+            transition: height 0.3s ease;
+        }
+
+
+         @media (min-width: 769px) {
+            #navbar ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                gap: 20px;
+            }
+        }
+
+
+        .book-call-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #navbar ul li a {
+            text-decoration: none;
+            color: black;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        #navbar ul li {
+            margin: 0 10px;
+        }
+
+        #navbar ul li a:hover {
+            color: pink;
+        }
+
+        .book-call {
+            background-color: #ff4081;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .book-call:hover {
+            background-color: deeppink;
+            color: #fff;
+        }
+
+        #navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 10px 10px;
+        }
+
+        #navbar.scrolled ul li a {
+            color: #000;
+        }
+
+        /* Show menu icon in mobile view */
+        .menu-icon {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: rgb(107, 103, 103);
+        }
+
+        #navbar.scrolled .menu-icon {
+            color: #000;
+        }
+
+        #nav-links {
+            display: flex;
+            flex-direction: row;
+        }
+
+
+/* Media Query for smaller screens (up to 768px) */
+@media (max-width: 768px) {
+    #navbar {
+        justify-content: space-between;
+    }
+
+    .menu-icon {
+        display: block;
+        margin-right: 30px;
+    }
+
+    /* Add this style to remove the bullet points */
+    #navbar ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    #navbar ul li a {
+        text-decoration: none;
+        color: black;
+        font-size: 16px;
+        transition: color 0.3s ease;
+    }
+
+    #nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 10px;
+        z-index: 999;
+    }
+
+    #nav-links.active {
+        display: flex;
+    }
+
+    #navbar img.navbar-image {
+        height: 30px;
+    }
+
+    .book-call {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}
+
+
+
+        /* Header */
+
+        /* About Us Section */
+.about-us {
+    display: flex;
+    justify-content: flex-start; /* Align content to the left */
+    align-items: flex-start; /* Align items to the top */
+    padding: 50px 70px; /* Add more padding to move content away from the edges */
+    background-color: #f5f7fa; /* Light background */
+    position: relative;
+    min-height: 600px; /* Ensure enough height for text and positioning */
+    z-index: 1; /* Base z-index for the entire section */
+}
+
+/* Styling for the Heading */
+.about-us h1 {
+    font-size: 4.0rem; /* Make heading larger */
+    font-weight: 700;
+    color: #0d0d33; /* Dark text color */
+    line-height: 1.1;
+    margin-bottom: 20px;
+    margin-top: 120px;
+    max-width: 90%; /* Set width to take up one and a half lines */
+    text-align: left; /* Align to the left */
+    position: relative; /* Position relative to ensure it stacks properly over the circles */
+    z-index: 2; /* Ensure it is on top of the circles */
+}
+
+/* Styling for the paragraph */
+.about-us p {
+    font-size: 1.5rem; /* Make the paragraph smaller than h1 */
+    color: #666666;
+    font-weight: 400;
+    margin-top: 30px;
+    max-width: 90%; /* Set width to ensure one and a half lines */
+    line-height: 1.5; /* Adjust line height for better readability */
+    position: relative; /* Position relative to ensure it stacks properly over the circles */
+    z-index: 2; /* Ensure it is on top of the circles */
+}
+
+/* Styling for the yellow background shape */
+.about-us:after {
+    content: '';
+    position: absolute;
+    width: 400px; /* Make circle larger */
+    height: 400px;
+    background-color: #ffde17; /* Yellow circle */
+    border-radius: 50%;
+    bottom: 100px; /* Adjust positioning lower */
+    left: 60%; /* Position behind text */
+    transform: translateX(-50%);
+    z-index: 0; /* Ensure it's behind the text */
+    opacity: 0.5; /* Slight transparency for subtle effect */
+}
+
+/* Styling for the pink background shape */
+.about-us:before {
+    content: '';
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    background-color: #ff007f; /* Pink circle */
+    border-radius: 50%;
+    bottom: 0;
+    left: -90px; /* Adjust position to ensure it's behind text */
+    z-index: 0; /* Ensure it's behind the text */
+    opacity: 0.5; /* Slight transparency for subtle effect */
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+    .about-us {
+        flex-direction: column; /* Stack image and text */
+        align-items: center; /* Center the content */
+        text-align: center;
+        min-height: 200px;
+        padding: 30px 20px; /* Adjust padding for smaller screens */
+    }
+
+ 
+    .about-us h1 {
+        font-size:2rem; /* Reduce font size for smaller screens */
+        max-width: 100%; /* Make heading take up full width */
+    }
+
+    .about-us p {
+        font-size: 1.2rem; /* Adjust paragraph size for smaller screens */
+        max-width: 100%; /* Make paragraph take up full width */
+    }
+
+    .about-us:before, .about-us:after {
+        display: none; /* Hide background shapes on smaller screens */
+    }
+}
+
+
+
+        /* Stat style */
+
+        .stats-about-section {
+            padding: 50px;
+            background-color: white;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-evenly;
+            margin-bottom: 50px;
+        }
+
+        .stat-box {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .stat-description {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #666;
+        }
+
+            /* Info section */
+        .info-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 50px; /* Add padding for spacing */
+            flex-direction: row-reverse; /* Image on the left, text on the right */
+        }
+
+        /* Styling for the text section */
+        .info-text {
+            max-width: 50%;
+            text-align: justify; /* Justify the text */
+            padding-left: 40px; /* Add padding to separate the text from the image */
+        }
+
+        .info-text h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #0d0d33;
+            margin-bottom: 20px;
+        }
+
+        .info-text p {
+            font-size: 1.2rem;
+            color: #666666;
+            font-weight: 400;
+            margin-bottom: 40px;
+            text-align: justify; /* Ensure proper justification for the paragraph text */
+        }
+
+        /* Image styling */
+        .info-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .info-section {
+                flex-direction: column; /* Stack image and text vertically on smaller screens */
+                align-items: center;
+                text-align: center;
+                padding: 20px; /* Adjust padding for smaller screens */
+            }
+
+            .info-text {
+                max-width: 100%;
+                padding-left: 0; /* Remove padding for smaller screens */
+            }
+
+            .info-image {
+                width: 100%;
+                margin-top: 30px;
+            }
+        }
+ 
+        /* Project */
+.projects-section {
+    text-align: center;
+    background: linear-gradient(to bottom, #a6cde4 50%, #1c2d68 50%);
+    color: white;
+    padding: 50px 20px;
+    position: relative;
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: calc(300px * 6); /* Adjust based on number of cards */
+}
+
+.project-card {
+    background-color: white;
+    color: black;
+    border-radius: 15px;
+    padding: 20px;
+    width: 300px; /* Fixed width for each card */
+    flex-shrink: 0; /* Prevent shrinking */
+    margin: 0 15px;
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.project-card img {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+/* Carousel Controls */
+.carousel-control {
+    position: absolute;
+    top: 50px;
+    background-color: #ff007f;
+    border: none;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.carousel-control:hover {
+    background-color: #fff;
+    color: #ff007f;
+}
+
+.carousel-control.prev {
+    right: 120px;
+}
+
+.carousel-control.next {
+    right: 50px;
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 2rem;
+    }
+
+    .carousel {
+        width: 100%;
+    }
+
+    .carousel-inner {
+        display: flex;
+        width: 100%;
+        transform: translateX(0); /* Initial position */
+    }
+
+    .project-card {
+        width: 100%; /* Full width for mobile */
+        margin: 0; /* Remove margin between cards on mobile */
+    }
+
+    .carousel-control.prev,
+    .carousel-control.next {
+        top: -10px;
+        right: 10px;
+        background-color: #ff007f;
+    }
+
+    .carousel-inner {
+        flex-direction: row;
+        transition: transform 0.5s ease-in-out;
+        /* Now the width is the size of one card */
+        width: 100%;
+    }
+}
+
+
+        /* Service Description */
+        .services-text {
+            margin-bottom: 40px; /* Spacing between text and cards */
+            text-align: left;
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+
+.services-text h2 {
+    font-size: 48px; /* Large font for heading */
+    color: #333;
+    margin: 20px;
+    font-weight: bold;
+}
+
+.services-section {
+    padding: 50px 20px;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+/* Mobile View Adjustments */
+@media (max-width: 768px) {
+    .services-text h2 {
+        font-size: 32px; /* Reduce font size for mobile */
+    }
+
+    .services-section {
+        padding: 30px 10px; /* Reduce padding for mobile */
+    }
+}
+
+
+        /* Desktop View: 3 columns */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns */
+            gap: 20px;
+            justify-content: center; /* Center the grid */
+            padding: 10px 50px; /* Add padding to move the cards away from edges */
+
+        }
+
+        /* Style for the service cards */
+        .service-card {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .service-card .icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* Media Query for Mobile: Stacked layout */
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr; /* Stack each card on top of each other */
+                gap: 20px;
+            }
+
+            .service-card {
+                text-align: center; /* Center the text inside the cards */
+            }
+
+            .service-card .icon {
+                font-size: 40px; /* Slightly reduce the icon size for mobile */
+            }
+
+            .service-card h3 {
+                font-size: 20px; /* Slightly reduce the heading size for mobile */
+            }
+
+            .service-card p {
+                font-size: 14px; /* Slightly reduce paragraph size for mobile */
+            }
+        }
+
+        /* Media Query for smaller mobile screens (up to 480px) */
+        @media (max-width: 480px) {
+            .services-header h2 {
+                font-size: 28px;
+            }
+
+            .services-header p {
+                font-size: 16px;
+            }
+
+            .service-card .icon {
+                font-size: 36px;
+            }
+
+            .service-card h3 {
+                font-size: 18px;
+            }
+
+            .service-card p {
+                font-size: 13px;
+            }
+        }
+
+        /* Contact Section */
+
+        #contact {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 40px 20px;
+            background-color: #e2f1fa;
+            text-align: center;
+        }
+
+        /* Contact Section Text */
+        .contact-section h2 {
+            font-size: 24px;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .contact-section h2 strong {
+            font-size: 28px;
+            color: #000;
+        }
+
+        .contact-section p {
+            font-size: 18px;
+            color: #b4b4b4;
+            margin-bottom: 20px;
+        }
+
+        .contact-section .icon-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .contact-section .icon-text i {
+            font-size: 24px;
+            margin-right: 10px;
+            color: #ff4a8d;
+        }
+
+        .contact-section .video {
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .contact-section iframe {
+            width: 100%;
+            height: 266;
+            max-width: 560px;
+            max-height: 315px;
+        }
+
+
+        /* Play Button */
+        .contact-section .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 0, 127, 0.8);
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10; /* Ensure the button is above the video */
+        }
+
+        /* Hide the play button when clicked */
+        .contact-section .play-button.hidden {
+            display: none;
+        }
+
+
+        /* Forms */
+        .form-container {
+            background-color: white;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Full width on mobile */
+            max-width: 400px; /* Maintain a max width on larger screens */
+            margin: 20px auto; /* Center the form on mobile */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        h3 {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .form-check {
+            display: flex;
+            align-items: center;
+        }
+
+        .form-check label {
+            margin-left: 5px;
+            font-weight: normal;
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #ff4081;
+            border: 2px solid #ff4081;
+            border-radius: 20px;
+            text-decoration: none;
+            background-color: transparent;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #ff4081;
+            color: white;
+        }
+
+        /* Responsive Adjustments for Mobile View */
+        @media (max-width: 768px) {
+            #contact {
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+            }
+
+            .contact-section h2 {
+                font-size: 20px; /* Smaller text size for mobile */
+            }
+
+            .contact-section h2 strong {
+                font-size: 24px; /* Smaller strong text */
+            }
+
+            .contact-section p {
+                font-size: 16px; /* Smaller paragraph size */
+            }
+
+            .contact-section iframe {
+                width: 100%; /* Full width for iframe */
+                height: auto; /* Responsive height */
+                max-width: 100%; /* Ensure it fits within the container */
+            }
+
+            .form-container {
+                width: 100%; /* Full width for form container on mobile */
+                padding: 15px;
+            }
+
+            .btn {
+                font-size: 14px; /* Smaller button text size */
+                padding: 8px 16px;
+            }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 480px) {
+            .contact-section h2 {
+                font-size: 18px;
+            }
+
+            .contact-section h2 strong {
+                font-size: 22px;
+            }
+
+            .contact-section p {
+                font-size: 14px;
+            }
+
+            .contact-section iframe {
+                width: 100%; /* Full width for iframe */
+                height: auto; /* Responsive height */
+            }
+
+            .form-container {
+                padding: 10px;
+            }
+
+            .btn {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+        }
+
+
+        /* Footer Layout */
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            /* Spread columns evenly */
+            align-items: flex-start;
+            /* Align columns to the top */
+            gap: 20px;
+            /* Adds space between each column */
+            flex-wrap: wrap;
+            /* Ensures content wraps when necessary */
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            flex: 1;
+            /* Ensures logo occupies 1 part of the space */
+            min-width: 200px;
+            /* Makes sure the logo doesn't shrink too much */
+        }
+
+        .footer-column {
+            flex: 1;
+            /* Each column will occupy an equal amount of space */
+            min-width: 150px;
+            /* Prevents columns from shrinking below 150px */
+            margin-bottom: 20px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: pink;
+        }
+
+        /* Social and Copyright Section */
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            /* Space the elements horizontally */
+            align-items: center;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-bottom p {
+            margin: 0;
+            flex: 1;
+            text-align: left;
+            color: #fff;
+        }
+
+        .footer-policies {
+            flex: 1;
+            text-align: center;
+        }
+
+        .footer-policies a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-policies a:hover {
+            color: pink;
+        }
+
+        .social-icons {
+            flex: 1;
+            text-align: right;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            background-color: #444;
+            color: #fff;
+            text-align: center;
+            border-radius: 50%;
+            margin-left: 10px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: #ff007f;
+            color: #fff;
+        }
+
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: row;
+                /* Keeps the columns side by side even on smaller screens */
+                flex-wrap: wrap;
+                /* Allows wrapping on smaller screens */
+            }
+
+            .footer-column {
+                flex: 1 1 calc(50% - 20px);
+                /* Adjust to two columns in smaller screens */
+                margin-bottom: 20px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-bottom p,
+            .footer-policies,
+            .social-icons {
+                text-align: center;
+                margin-bottom: 10px;
+            }
+
+            .social-icons a {
+                margin: 0 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav id="navbar">
+            <img src="../../static/Assest/blue.png" alt="Navbar Image" class="navbar-image">
+            <div class="menu-icon" id="menu-icon">&#9776;</div>
+            <ul id="nav-links">
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'services' %}">Services</a></li>
+                <li><a href="{% url 'book' %}" class="book-call">Book a Call</a></li>
+            </ul>
+        </nav>
+
+
+        <!-- About Us Content -->
+        <div class="about-us">
+            <div class="about-us-text">
+                <h1>We design & build innovative products focused on user’s needs</h1>
+                <p>Together, we can transform your vision into a thriving business, be it through a Minimum Viable Product, UX/UI services,
+                or scaling support for your company.</p>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Information -->
+
+    <section class="stats-about-section" id="stats-about">
+        <div class="stats-container">
+            <!-- Stats Box 1 -->
+            <div class="stat-box">
+                <div class="stat-number" data-target="80">0</div>
+                <p class="stat-description">completed projects</p>
+            </div>
+            <!-- Stats Box 2 -->
+            <div class="stat-box">
+                <div class="stat-number" data-target="40">0</div>
+                <p class="stat-description">in-house specialists</p>
+            </div>
+            <!-- Stats Box 3 -->
+            <div class="stat-box">
+                <div class="stat-number" data-target="4.9">0</div>
+                <p class="stat-description">our Clutch score</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="services-text">
+        <h2> our services at a glance </h2>
+    </div>
+    
+    <div class="services-grid">
+    
+        <div class="service-card">
+            <div class="icon" style="color: #2a9dff;">
+                <i class="fas fa-gem"></i>
+            </div>
+            <h3>Product Scope</h3>
+            <p>A structured 15 day process to align your product vision with your business goals.</p>
+        </div>
+    
+        <div class="service-card">
+            <div class="icon" style="color: #ff4a8d;">
+                <i class="fas fa-cube"></i>
+            </div>
+            <h3>UX/UI Design</h3>
+            <p>Design an engaging product that is easy-to-use, attractive and functional.</p>
+        </div>
+    
+        <div class="service-card">
+            <div class="icon" style="color: #ffc700;">
+                <i class="fas fa-paper-plane"></i>
+            </div>
+            <h3>MVP Builder</h3>
+            <p>Go to the market quickly with a high-quality Minimum Viable Product.</p>
+        </div>
+    
+        <div class="service-card">
+            <div class="icon" style="color: #8a2be2;">
+                <i class="fas fa-users"></i>
+            </div>
+            <h3>Dedicated Teams</h3>
+            <p>Build your product with a dedicated team of developers.</p>
+        </div>
+    
+        <div class="service-card">
+            <div class="icon" style="color: #20c997;">
+                <i class="fas fa-laptop-code"></i>
+            </div>
+            <h3>Custom Software Development</h3>
+            <p>Lean frameworks applied to your vision to create an innovative custom software solution.</p>
+        </div>
+    </div>
+    </div>
+
+    <!-- What we do -->
+    
+    <div class="projects-section">
+        <h2>The projects we've brought to life</h2>
+        <div class="carousel">
+            <div class="carousel-inner">
+                <div class="project-card">
+                    <img src="../../static/Assest/school-management-software.jpeg" alt="School Project">
+                    <h3>School Management software</h3>
+                    <p>ACCADEMICS • AKWA IBOM & LAGOS STATE</p>
+                    <p>School Management Software enables seamless Management...</p>
+                </div>
+                <div class="project-card">
+                    <img src="../../static/Assest/Hotel.png" alt="Hotel Project">
+                    <h3>Hotel Management System</h3>
+                    <p>Hospitality • AKWA IBOM STATE</p>
+                    <p>Hotel Management System handles Management and booking of space...</p>
+                </div>
+                <div class="project-card">
+                    <img src="../../static/Assest/CCtv.jpg" alt="CCTV Project">
+                    <h3>CCTV Installation</h3>
+                    <p>Security • AKWA IBOM STATE</p>
+                    <p>CCTV helps in real time Security and keeping data...</p>
+                </div>
+                <div class="project-card">
+                    <img src="../../static/Assest/Digital-signage.jpeg" alt="CCTV Project">
+                    <h3>Digital Signage</h3>
+                    <p> Branding • AKWA IBOM STATE</p>
+                    <p>Digital Signage make you brand visible...</p>
+                </div>
+                <div class="project-card">
+                    <img src="../../static/Assest/mobile-app-dev.jpg" alt="CCTV Project">
+                    <h3>Mobile App</h3>
+                    <p> Development • LAGOS STATE</p>
+                    <p>Mobile App makes your accessible to all...</p>
+                </div>
+                <div class="project-card">
+                    <img src="../../static/Assest/solar-installation.jpg" alt="CCTV Project">
+                    <h3>Solar Panel Installation</h3>
+                    <p> Energy • RIVERS STATE</p>
+                    <p>Solar panels supplies energy needed for daily business...</p>
+                </div>
+                <div class="project-card">
+                    <img src="../../static/Assest/web-design.jpg" alt="CCTV Project">
+                    <h3>Website Development</h3>
+                    <p> Development • AKWA IBOM STATE</p>
+                    <p>Solar panels supplies energy needed for daily business...</p>
+                </div>
+            </div>
+            <button class="carousel-control prev">&lt;</button>
+            <button class="carousel-control next">&gt;</button>
+        </div>
+    </div>
+
+
+    <section class="stats-about-section" id="stats-about">
+
+        <!-- Information Section -->
+        <div class="info-section">
+            <div class="info-text">
+                <h1>How we work</h1>
+                <p>
+                    We believe there are no excuses to build anything less than great technology products. The core of our operations lies in helping you craft and launch tailored, innovative solutions designed to delight your users.
+                </p>
+
+                <p>
+                    To achieve this, we combine a lean approach with tried-and-tested frameworks and our extensive experience in creating
+                    products that successfully hit the market. This blend of agility, knowledge, and practical know-how sets the stage for
+                    our collaboration.
+                </p>
+                <p>
+                    Our ethos mirrors the dynamics of an in-house team, ensuring a partnership rooted in complete transparency, alignment
+                    with your objectives, and a shared business vision. You’ll be working hand-in-hand with our committed, highly efficient
+                    team of in-house specialists
+                </p>
+
+                <p>
+                    Together, we can transform your vision into a thriving business and our foundational principles guarantee that we
+                    achieve this on time and within budget.
+                </p>
+            </div>
+            <div class="info-image">
+                <img src="../../static/Assest/Services.png" alt="Team working together" />
+            </div>
+        </div>
+    </section>
+
+  
+    <section id="contact">
+    
+        <div class="contact-section">
+            <h2>Talk to us and<br><strong>get your project moving!</strong></h2>
+            <div class="icon-text">
+                <i class="fas fa-check-circle"></i>
+                <p>We will respond to you within 24 hours.</p>
+            </div>
+            <div class="icon-text">
+                <i class="fas fa-check-circle"></i>
+                <p>You'll be talking to product and tech experts (no account managers).</p>
+            </div>
+            <div class="video">
+                <iframe id="youtube-video" width="560" height="315"
+                    src="https://www.youtube.com/embed/NN7YEIlc-Oc?si=wR0JggKiv5hwwGLw&enablejsapi=1"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <div class="play-button" id="play-button">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+        </div>
+    
+        <div class="form-container">
+            <h1>Project Inquiry Form</h1>
+            <form method="post" action="{% url 'index' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_name">Name</label>
+                    {{ form.name }}
+                </div>
+                <div class="form-group">
+                    <label for="id_email">Email</label>
+                    {{ form.email }}
+                </div>
+                <div class="form-group">
+                    <label for="id_budget_size">Budget Size</label>
+                    {{ form.budget_size }}
+                </div>
+                <div class="form-group">
+                    <label for="id_description">Project Description</label>
+                    {{ form.description }}
+                </div>
+                <div class="form-group">
+                    <label for="id_referral_source">How did you hear about us?</label>
+                    {{ form.referral_source }}
+                </div>
+                <div class="form-group form-check">
+                    <label for="id_requires_nda">{{ form.requires_nda }}</label>
+                    <h3>This Project requires an NDA</h3>
+                </div>
+                <button type="submit" class="btn">Submit </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer section -->
+
+    <footer style="background-color: #1a1a1a; color: #fff; padding: 40px 20px;">
+        <div class="footer-content">
+            <!-- Logo Section -->
+            <div class="footer-logo">
+                <img src="../../static/Assest/Numjin-logo.png" alt="Company Logo" style="width: 100px;">
+                <address style="color: #bbb; margin-top: 20px;">
+                    54 Obio Imoh Street,<br>
+                    Uyo, Akwa Ibom State, 520101<br>
+                    Nigeria, +234 906 3632 388
+                </address>
+            </div>
+
+            <!-- Links Section -->
+            <div class="footer-links"
+                style="display: flex; flex: 3; justify-content: space-around; flex-wrap: wrap; min-width: auto;">
+                <div class="footer-column">
+                    <h3>Global</h3>
+                    <ul>
+                        <li><a href="#">Work</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Newsletter</a></li>
+                        <li><a href="#">News</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Technology</h3>
+                    <ul>
+                        <li><a href="#">Tech</a></li>
+                        <li><a href="#">Open Source</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Product Scope</a></li>
+                        <li><a href="#">UX/UI</a></li>
+                        <li><a href="#">MVP Builder</a></li>
+                        <li><a href="#">Dedicated Teams</a></li>
+                        <li><a href="#">Custom Software Development</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Build</h3>
+                    <ul>
+                        <li><a href="#">Play with Pricing</a></li>
+                        <li><a href="#">Book a Call</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social and Copyright Section -->
+        <div class="footer-bottom">
+            <p>© 2024 Numjinict.com.ng. All rights reserved.</p>
+            <div class="footer-policies">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Security</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=100063877700011&mibextid=ZbWKwL" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script>
+
+
+    window.addEventListener('scroll', function () {
+        const navbar = document.getElementById('navbar');
+        const logo = document.querySelector('.navbar-image');
+
+        if (window.scrollY > 50) { // Adjust this value as needed
+            navbar.classList.add('scrolled');
+            logo.src = '../../static/Assest/blue.png'; // Path to the scrolled logo image
+        } else {
+            navbar.classList.remove('scrolled');
+            logo.src = '../../static/Assest/blue.png'; // Path to the original logo image
+        }
+    });
+
+        // Function to hide play button and start the YouTube video
+        document.getElementById('play-button').addEventListener('click', function () {
+                var iframe = document.getElementById('youtube-video');
+                var playButton = document.getElementById('play-button');
+
+                // Hide the play button
+                playButton.classList.add('hidden');
+
+                // Play the video by calling YouTube API
+                iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            });
+        
+
+
+        const menuIcon = document.getElementById("menu-icon");
+        const navLinks = document.getElementById("nav-links");
+
+        menuIcon.addEventListener("click", function () {
+            navLinks.classList.toggle("active");
+        });
+
+
+        const counters = document.querySelectorAll('.stat-number');
+        const speed = 200; // You can adjust the speed of the counting
+
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+
+                const increment = target / speed;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(updateCount, 60);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+
+            updateCount();
+        });
+
+        let currentIndex = 0;
+            const totalCards = document.querySelectorAll('.project-card').length;
+            const visibleCards = 3; // Only 3 cards visible at once
+            const cardWidth = 330; // 300px width + 15px margin on both sides
+
+            document.querySelector('.carousel-control.next').addEventListener('click', function () {
+                if (currentIndex < totalCards - visibleCards) {
+                    currentIndex++;
+                    document.querySelector('.carousel-inner').style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+                }
+            });
+
+            document.querySelector('.carousel-control.prev').addEventListener('click', function () {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    document.querySelector('.carousel-inner').style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+                }
+            });
+
+            // Automatically move the carousel every second
+            setInterval(function () {
+                if (currentIndex < totalCards - visibleCards) {
+                    currentIndex++;
+                } else {
+                    currentIndex = 0; // Reset to first card
+                }
+                document.querySelector('.carousel-inner').style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+            }, 10000); // Change every 3 seconds
+
+        document.getElementById('playButton').addEventListener('click', function () {
+            var video = document.getElementById('promoVideo');
+            var playButton = document.getElementById('playButton');
+
+            video.play();
+            playButton.style.display = 'none';
+        });
+    </script>
+</body>
+
+</html>

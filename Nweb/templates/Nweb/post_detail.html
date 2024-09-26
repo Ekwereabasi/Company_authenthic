@@ -1,0 +1,599 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+
+        /* Navbar */
+        #navbar {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10px;
+            background-color: transparent;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1000;
+        }
+
+        #navbar img.navbar-image {
+            height: 40px;
+        }
+
+        #navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 10px 10px;
+        }
+
+        #navbar.scrolled ul li a {
+            color: #000;
+        }
+
+        #navbar ul li a {
+            text-decoration: none;
+            color: black;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        #navbar ul li a:hover {
+            color: pink;
+        }
+
+
+        .book-call {
+            background-color: #ff4081;
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .book-call:hover {
+            background-color: deeppink;
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: rgb(107, 103, 103);
+
+        }
+
+
+        @media (min-width: 769px) {
+            #navbar ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                gap: 20px;
+            }
+        }
+
+
+        /* Media Query for smaller screens (up to 768px) */
+        @media (max-width: 768px) {
+            #navbar {
+                justify-content: space-between;
+            }
+
+            .menu-icon {
+                display: block;
+                margin-right: 30px;
+            }
+
+            /* Add this style to remove the bullet points */
+            #navbar ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            #navbar ul li a {
+                text-decoration: none;
+                color: black;
+                font-size: 16px;
+                transition: color 0.3s ease;
+            }
+
+            #nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: rgba(255, 255, 255, 0.9);
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                backdrop-filter: blur(10px);
+                padding: 10px;
+                z-index: 999;
+            }
+
+            #nav-links.active {
+                display: flex;
+            }
+
+            #navbar img.navbar-image {
+                height: 30px;
+            }
+
+            .book-call {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+        }
+
+
+        /* Container for the post */
+        .post-container {
+            background-color: #f4f7fa;
+            max-width: 800px;
+            margin: 100px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            /* Needed for the pseudo-elements to position properly */
+            overflow: hidden;
+            /* Ensures the shapes do not overflow out of the container */
+        }
+
+        /* Adding shapes using ::before and ::after */
+        .post-container::before,
+        .post-container::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            /* This makes the shapes circular */
+            opacity: 0.1;
+            /* Make the shapes subtle */
+            z-index: 0;
+            /* Ensures the shapes stay behind the content */
+        }
+
+        .post-container::before {
+            width: 150px;
+            height: 150px;
+            background-color: #44d2eb;
+            top: -50px;
+            left: -50px;
+        }
+
+        .post-container::after {
+            width: 200px;
+            height: 200px;
+            background-color: #007bff;
+            bottom: -80px;
+            right: -80px;
+        }
+
+        /* Ensure content stays on top of the shapes */
+        .post-detail,
+        .back-to-blog {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Post Title */
+        .post-title {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #0B132B;
+            margin-bottom: 20px;
+            text-align: center;
+            padding: 20px;
+            background-color: var(--post-title-bg, #44d2eb);
+            border-radius: 10px;
+            color: black;
+            text-transform: capitalize;
+        }
+
+        /* Post Date */
+        .post-date {
+            font-size: 0.9em;
+            color: #888;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        /* Image styling */
+        .post-detail-image {
+            display: block;
+            margin: 0 auto 40px auto;
+            width: 80%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            max-width: 600px;
+        }
+
+        /* Post content */
+        .post-content {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #333;
+            text-align: justify;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+
+        /* Back to Blog button */
+        .back-to-blog {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #44d2eb;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-to-blog:hover {
+            background-color: #007bff;
+        }
+
+        /* Mobile View Optimizations */
+        @media screen and (max-width: 768px) {
+            .post-container {
+                padding: 20px;
+                margin: 110px 20px;
+                width: 80%;
+                margin-bottom: 10px;
+            }
+
+            .post-title {
+                font-size: 2em;
+                padding: 15px;
+            }
+
+            .post-detail-image {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+
+            .post-content {
+                font-size: 1em;
+                padding: 15px;
+            }
+
+            .back-to-blog {
+                width: 50%;
+                padding: 12px;
+                text-align: center;
+            }
+
+            .post-container::before {
+                width: 100px;
+                height: 100px;
+            }
+
+            .post-container::after {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+
+        /* Footer Layout */
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            /* Spread columns evenly */
+            align-items: flex-start;
+            /* Align columns to the top */
+            gap: 20px;
+            /* Adds space between each column */
+            flex-wrap: wrap;
+            /* Ensures content wraps when necessary */
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            flex: 1;
+            /* Ensures logo occupies 1 part of the space */
+            min-width: 200px;
+            /* Makes sure the logo doesn't shrink too much */
+        }
+
+        .footer-column {
+            flex: 1;
+            /* Each column will occupy an equal amount of space */
+            min-width: 150px;
+            /* Prevents columns from shrinking below 150px */
+            margin-bottom: 20px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: pink;
+        }
+
+        /* Social and Copyright Section */
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            /* Space the elements horizontally */
+            align-items: center;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-bottom p {
+            margin: 0;
+            flex: 1;
+            text-align: left;
+            color: #fff;
+        }
+
+        .footer-policies {
+            flex: 1;
+            text-align: center;
+        }
+
+        .footer-policies a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-policies a:hover {
+            color: pink;
+        }
+
+        .social-icons {
+            flex: 1;
+            text-align: right;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            background-color: #444;
+            color: #fff;
+            text-align: center;
+            border-radius: 50%;
+            margin-left: 10px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: #ff007f;
+            color: #fff;
+        }
+
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: row;
+                /* Keeps the columns side by side even on smaller screens */
+                flex-wrap: wrap;
+                /* Allows wrapping on smaller screens */
+            }
+
+            .footer-column {
+                flex: 1 1 calc(50% - 20px);
+                /* Adjust to two columns in smaller screens */
+                margin-bottom: 20px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-bottom p,
+            .footer-policies,
+            .social-icons {
+                text-align: center;
+                margin-bottom: 10px;
+            }
+
+            .social-icons a {
+                margin: 0 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav id="navbar">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'Assest/blue.png' %}" alt="Navbar Image" class="navbar-image">
+            </a>
+            <div class="menu-icon" id="menu-icon">&#9776;</div>
+            <ul id="nav-links">
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'services' %}">Services</a></li>
+                <li><a href="{% url 'post_list' %}">Blog</a></li>
+                <li><a href="{% url 'book' %}" class="book-call">Book a Call</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <!-- Blog read -->
+    <section>
+        <div class="container post-container" style="--post-title-bg: {{ post.color }};">
+            <article class="post-detail">
+                <h1 class="post-title">{{ post.title }}</h1>
+                <p class="post-date">{{ post.created_at }}</p>
+
+                {% if post.image %}
+                <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-detail-image">
+                {% endif %}
+
+                <div class="post-content">
+                    {{ post.content|linebreaks }}
+                </div>
+            </article>
+
+            <a href="{% url 'post_list' %}" class="back-to-blog">Back to Blog</a>
+        </div>
+    </section>
+    <!-- Footer section -->
+
+    <footer style="background-color: #1a1a1a; color: #fff; padding: 40px 20px;">
+        <div class="footer-content">
+            <!-- Logo Section -->
+            <div class="footer-logo">
+                <img src="../../static/Assest/Numjin-logo.png" alt="Company Logo" style="width: 100px;">
+                <address style="color: #bbb; margin-top: 20px;">
+                    49 Udotung Ubo Street,<br>
+                    Uyo, Akwa Ibom State, 520101<br>
+                    Nigeria, +234 906 3632 388
+                </address>
+            </div>
+
+            <!-- Links Section -->
+            <div class="footer-links"
+                style="display: flex; flex: 3; justify-content: space-around; flex-wrap: wrap; min-width: auto;">
+                <div class="footer-column">
+                    <h3>Global</h3>
+                    <ul>
+                        <li><a href="#">Work</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Newsletter</a></li>
+                        <li><a href="#">News</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Technology</h3>
+                    <ul>
+                        <li><a href="#">Tech</a></li>
+                        <li><a href="#">Open Source</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Product Scope</a></li>
+                        <li><a href="#">UX/UI</a></li>
+                        <li><a href="#">MVP Builder</a></li>
+                        <li><a href="#">Dedicated Teams</a></li>
+                        <li><a href="#">Custom Software Development</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Build</h3>
+                    <ul>
+                        <li><a href="#">Play with Pricing</a></li>
+                        <li><a href="#">Book a Call</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social and Copyright Section -->
+        <div class="footer-bottom">
+            <p>© 2024 Numjinict.com.ng. All rights reserved.</p>
+            <div class="footer-policies">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Security</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=100063877700011&mibextid=ZbWKwL" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            const logo = document.querySelector('.navbar-image');
+
+            if (window.scrollY > 50) { // Adjust this value as needed
+                navbar.classList.add('scrolled');
+                logo.src = "../../static/Assest/blue.png"; // Path to the scrolled logo image
+            } else {
+                navbar.classList.remove('scrolled');
+                logo.src = "../../static/Assest/blue.png"; // Path to the original logo image
+            }
+        });
+
+        const menuIcon = document.getElementById("menu-icon");
+        const navLinks = document.getElementById("nav-links");
+
+        menuIcon.addEventListener("click", function () {
+            navLinks.classList.toggle("active");
+        });
+    </script>
+    </script>
+</body>
+
+</html>

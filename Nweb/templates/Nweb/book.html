@@ -1,0 +1,770 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Book</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+
+
+        /* Navbar */
+        #navbar {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10px;
+            background-color: transparent;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1000;
+        }
+
+        #navbar img.navbar-image {
+            height: 40px;
+        }
+
+        #navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 10px 10px;
+        }
+
+        #navbar.scrolled ul li a {
+            color: #000;
+        }
+
+        #navbar ul li a {
+            text-decoration: none;
+            color: black;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        /* Add this style to remove the bullet points */
+        #navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        .book-call {
+            background-color: #ff4081;
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .book-call:hover {
+            background-color: deeppink;
+        }
+
+        #navbar ul li a:hover {
+            color: pink;
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: rgb(107, 103, 103);
+
+        }
+
+
+        @media (min-width: 769px) {
+            #navbar ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                gap: 20px;
+            }
+        }
+
+
+
+        /* Media Query for mobile view */
+        @media (max-width: 768px) {
+            #navbar {
+                justify-content: space-between;
+            }
+
+            .menu-icon {
+                display: block;
+                margin-right: 30px;
+            }
+
+
+            #navbar ul li a {
+                text-decoration: none;
+                color: black;
+                font-size: 16px;
+                /* font-weight: bold; */
+                transition: color 0.3s ease;
+            }
+
+
+            #nav-links {
+                display: none;
+                /* Hidden by default */
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: rgba(255, 255, 255, 0.9);
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                backdrop-filter: blur(10px);
+                padding: 10px;
+                z-index: 999;
+            }
+
+            #nav-links.active {
+                display: flex;
+            }
+
+            #navbar img.navbar-image {
+                height: 30px;
+                /* Smaller logo size */
+            }
+
+            .book-call {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+        }
+
+
+
+        /* Contact Section */
+
+        #contact {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 150px 20px;
+            background-color: #e2f1fa;
+            text-align: center;
+        }
+
+        /* Contact Section Text */
+        .contact-section h2 {
+            font-size: 24px;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .contact-section h2 strong {
+            font-size: 28px;
+            color: #000;
+        }
+
+        .contact-section p {
+            font-size: 18px;
+            color: #b4b4b4;
+            margin-bottom: 20px;
+        }
+
+        .contact-section .icon-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .contact-section .icon-text i {
+            font-size: 24px;
+            margin-right: 10px;
+            color: #ff4a8d;
+        }
+
+        .contact-section .video {
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .contact-section iframe {
+            width: 100%;
+            height: 266;
+            max-width: 560px;
+            max-height: 315px;
+        }
+
+
+        /* Play Button */
+        .contact-section .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 0, 127, 0.8);
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            /* Ensure the button is above the video */
+        }
+
+        /* Hide the play button when clicked */
+        .contact-section .play-button.hidden {
+            display: none;
+        }
+
+
+        /* Forms */
+        .form-container {
+            background-color: white;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            /* Full width on mobile */
+            max-width: 400px;
+            /* Maintain a max width on larger screens */
+            margin: 20px auto;
+            /* Center the form on mobile */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        h3 {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .form-check {
+            display: flex;
+            align-items: center;
+        }
+
+        .form-check label {
+            margin-left: 5px;
+            font-weight: normal;
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #ff4081;
+            border: 2px solid #ff4081;
+            border-radius: 20px;
+            text-decoration: none;
+            background-color: transparent;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #ff4081;
+            color: white;
+        }
+
+        /* Responsive Adjustments for Mobile View */
+        @media (max-width: 768px) {
+            #contact {
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+            }
+
+            .contact-section h2 {
+                font-size: 20px;
+                margin-top: 100px;
+                /* Smaller text size for mobile */
+            }
+
+            .contact-section h2 strong {
+                font-size: 24px;
+                /* Smaller strong text */
+            }
+
+            .contact-section p {
+                font-size: 16px;
+                /* Smaller paragraph size */
+            }
+
+            .contact-section iframe {
+                width: 100%;
+                /* Full width for iframe */
+                height: auto;
+                /* Responsive height */
+                max-width: 100%;
+                /* Ensure it fits within the container */
+            }
+
+            .form-container {
+                width: 100%;
+                /* Full width for form container on mobile */
+                padding: 15px;
+            }
+
+            .btn {
+                font-size: 14px;
+                /* Smaller button text size */
+                padding: 8px 16px;
+            }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 480px) {
+            .contact-section h2 {
+                font-size: 18px;
+            }
+
+            .contact-section h2 strong {
+                font-size: 22px;
+            }
+
+            .contact-section p {
+                font-size: 14px;
+            }
+
+            .contact-section iframe {
+                width: 100%;
+                /* Full width for iframe */
+                height: auto;
+                /* Responsive height */
+            }
+
+            .form-container {
+                padding: 10px;
+            }
+
+            .btn {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+        }
+
+        /* Footer Layout */
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            /* Spread columns evenly */
+            align-items: flex-start;
+            /* Align columns to the top */
+            gap: 20px;
+            /* Adds space between each column */
+            flex-wrap: wrap;
+            /* Ensures content wraps when necessary */
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            flex: 1;
+            /* Ensures logo occupies 1 part of the space */
+            min-width: 200px;
+            /* Makes sure the logo doesn't shrink too much */
+        }
+
+        .footer-column {
+            flex: 1;
+            /* Each column will occupy an equal amount of space */
+            min-width: 150px;
+            /* Prevents columns from shrinking below 150px */
+            margin-bottom: 20px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: pink;
+        }
+
+        /* Social and Copyright Section */
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            /* Space the elements horizontally */
+            align-items: center;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-bottom p {
+            margin: 0;
+            flex: 1;
+            text-align: left;
+            color: #fff;
+        }
+
+        .footer-policies {
+            flex: 1;
+            text-align: center;
+        }
+
+        .footer-policies a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-policies a:hover {
+            color: pink;
+        }
+
+        .social-icons {
+            flex: 1;
+            text-align: right;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            background-color: #444;
+            color: #fff;
+            text-align: center;
+            border-radius: 50%;
+            margin-left: 10px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: #ff007f;
+            color: #fff;
+        }
+
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: row;
+                /* Keeps the columns side by side even on smaller screens */
+                flex-wrap: wrap;
+                /* Allows wrapping on smaller screens */
+            }
+
+            .footer-column {
+                flex: 1 1 calc(50% - 20px);
+                /* Adjust to two columns in smaller screens */
+                margin-bottom: 20px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-bottom p,
+            .footer-policies,
+            .social-icons {
+                text-align: center;
+                margin-bottom: 10px;
+            }
+
+            .social-icons a {
+                margin: 0 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav id="navbar">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'Assest/blue.png' %}" alt="Navbar Image" class="navbar-image">
+            </a>
+            <div class="menu-icon" id="menu-icon">&#9776;</div>
+            <ul id="nav-links">
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'services' %}">Services</a></li>
+                <li><a href="{% url 'post_list' %}">Blog</a></li>
+                <li><a href="{% url 'book' %}" class="book-call">Book a Call</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+
+
+    <section id="contact">
+
+        <div class="contact-section">
+            <h2>Talk to us and<br><strong>get your project moving!</strong></h2>
+            <div class="icon-text">
+                <i class="fas fa-check-circle"></i>
+                <p>We will respond to you within 24 hours.</p>
+            </div>
+            <div class="icon-text">
+                <i class="fas fa-check-circle"></i>
+                <p>You'll be talking to product and tech experts (no account managers).</p>
+            </div>
+            <div class="video">
+                <iframe id="youtube-video" width="560" height="315"
+                    src="https://www.youtube.com/embed/NN7YEIlc-Oc?si=wR0JggKiv5hwwGLw&enablejsapi=1"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <div class="play-button" id="play-button">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <h1>Project Inquiry Form</h1>
+            <form method="post" action="{% url 'index' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_name">Name</label>
+                    {{ form.name }}
+                </div>
+                <div class="form-group">
+                    <label for="id_email">Email</label>
+                    {{ form.email }}
+                </div>
+                <div class="form-group">
+                    <label for="id_budget_size">Budget Size</label>
+                    {{ form.budget_size }}
+                </div>
+                <div class="form-group">
+                    <label for="id_description">Project Description</label>
+                    {{ form.description }}
+                </div>
+                <div class="form-group">
+                    <label for="id_referral_source">How did you hear about us?</label>
+                    {{ form.referral_source }}
+                </div>
+                <div class="form-group form-check">
+                    <label for="id_requires_nda">{{ form.requires_nda }}</label>
+                    <h3>This Project requires an NDA</h3>
+                </div>
+                <button type="submit" class="btn">Submit </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer section -->
+
+    <footer style="background-color: #1a1a1a; color: #fff; padding: 40px 20px;">
+        <div class="footer-content">
+            <!-- Logo Section -->
+            <div class="footer-logo">
+                <img src="{% static 'Assest/Numjin-logo.png' %}" alt="Company Logo" style="width: 100px;">
+                <address style="color: #bbb; margin-top: 20px;">
+                    49 Udotung Ubo Street,<br>
+                    Uyo, Akwa Ibom State, 520101<br>
+                    Nigeria, +234 906 3632 388
+                </address>
+            </div>
+
+            <!-- Links Section -->
+            <div class="footer-links"
+                style="display: flex; flex: 3; justify-content: space-around; flex-wrap: wrap; min-width: auto;">
+                <div class="footer-column">
+                    <h3>Global</h3>
+                    <ul>
+                        <li><a href="#">Work</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Newsletter</a></li>
+                        <li><a href="#">News</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Technology</h3>
+                    <ul>
+                        <li><a href="#">Tech</a></li>
+                        <li><a href="#">Open Source</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Product Scope</a></li>
+                        <li><a href="#">UX/UI</a></li>
+                        <li><a href="#">MVP Builder</a></li>
+                        <li><a href="#">Dedicated Teams</a></li>
+                        <li><a href="#">Custom Software Development</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Build</h3>
+                    <ul>
+                        <li><a href="#">Play with Pricing</a></li>
+                        <li><a href="#">Book a Call</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social and Copyright Section -->
+        <div class="footer-bottom">
+            <p>© 2024 Numjinict.com.ng. All rights reserved.</p>
+            <div class="footer-policies">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Security</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=100063877700011&mibextid=ZbWKwL" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script>
+
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            const logo = document.querySelector('.navbar-image');
+
+            if (window.scrollY > 50) { // Adjust this value as needed
+                navbar.classList.add('scrolled');
+                logo.src = '{% static 'Assest / blue.png' %}'; // Path to the scrolled logo image
+            } else {
+                navbar.classList.remove('scrolled');
+                logo.src = '{% static 'Assest / blue.png' %}'; // Path to the original logo image
+            }
+        });
+
+        const menuIcon = document.getElementById("menu-icon");
+        const navLinks = document.getElementById("nav-links");
+
+        menuIcon.addEventListener("click", function () {
+            navLinks.classList.toggle("active");
+        });
+
+
+        // Function to hide play button and start the YouTube video
+        document.getElementById('play-button').addEventListener('click', function () {
+            var iframe = document.getElementById('youtube-video');
+            var playButton = document.getElementById('play-button');
+
+            // Hide the play button
+            playButton.classList.add('hidden');
+
+            // Play the video by calling YouTube API
+            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        });
+
+
+
+        document.getElementById('playButton').addEventListener('click', function () {
+            var video = document.getElementById('promoVideo');
+            var playButton = document.getElementById('playButton');
+
+            video.play();
+            playButton.style.display = 'none';
+        });
+    </script>
+</body>
+
+</html>

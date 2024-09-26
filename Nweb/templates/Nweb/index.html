@@ -1,0 +1,2602 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Index</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+
+
+        /* Navbar */
+        #navbar {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10px;
+            background-color: transparent;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1000;
+        }
+
+        #navbar img.navbar-image {
+            height: 40px;
+        }
+
+        #navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 10px 10px;
+        }
+
+        #navbar.scrolled ul li a {
+            color: #000;
+        }
+
+        #navbar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+
+
+        .book-call {
+            background-color: #ff4081;
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .book-call:hover {
+            background-color: deeppink;
+        }
+
+        #navbar ul li a:hover {
+            color: pink;
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: rgb(107, 103, 103);
+
+        }
+
+
+        @media (min-width: 769px) {
+            #navbar ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                gap: 20px;
+            }
+        }
+
+
+
+        /* Media Query for smaller screens (up to 768px) */
+        @media (max-width: 768px) {
+            #navbar {
+                justify-content: space-between;
+            }
+
+            .menu-icon {
+                display: block;
+                margin-right: 30px;
+            }
+
+            /* Add this style to remove the bullet points */
+            #navbar ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            #navbar ul li a {
+                text-decoration: none;
+                color: black;
+                font-size: 16px;
+                transition: color 0.3s ease;
+            }
+
+            #nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: rgba(255, 255, 255, 0.9);
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                backdrop-filter: blur(10px);
+                padding: 10px;
+                z-index: 999;
+            }
+
+            #nav-links.active {
+                display: flex;
+            }
+
+            #navbar img.navbar-image {
+                height: 30px;
+            }
+
+            .book-call {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+        }
+
+
+
+        /* Header */
+        .video-section {
+            position: relative;
+            width: 100%;
+            height: 800px;
+            overflow: hidden;
+        }
+
+        .background-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 139, 0.7);
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: left;
+            /* Align text to the left */
+            padding-left: 5%;
+        }
+
+        .overlay-content {
+            display: flex;
+            flex-direction: column;
+            /* Stack elements vertically */
+            align-items: flex-start;
+            /* Align elements to the left */
+        }
+
+        .overlay-content h3 {
+            font-size: 24px;
+            color: rgb(177, 185, 196);
+            margin-bottom: 20px;
+        }
+
+        .overlay-content h1 {
+            font-size: 48px;
+            color: white;
+            font-weight: bold;
+            margin: 0;
+            line-height: 1.2;
+            display: block;
+            /* Ensure it's a block-level element */
+            text-align: left;
+        }
+
+        .btn-book-call {
+            margin-top: 30px;
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #ff4081;
+            border: 2px solid #ff4081;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+
+        }
+
+        .btn-book-call:hover {
+            background-color: #ff4081;
+            color: white;
+        }
+
+        /* Media Query for smaller screens (up to 768px) */
+        @media (max-width: 768px) {
+            .overlay-content h3 {
+                font-size: 20px;
+            }
+
+            .overlay-content h1 {
+                font-size: 36px;
+                line-height: 1.2;
+            }
+
+            .btn-book-call {
+                font-size: 14px;
+                padding: 8px 20px;
+            }
+
+            .overlay {
+                padding-left: 2%;
+            }
+        }
+
+        /* Media Query for extra small screens (up to 480px) */
+        @media (max-width: 480px) {
+            .overlay-content h3 {
+                font-size: 16px;
+            }
+
+            .overlay-content h1 {
+                font-size: 28px;
+                line-height: 1.2;
+            }
+
+            .btn-book-call {
+                font-size: 12px;
+                padding: 6px 15px;
+            }
+
+            .overlay {
+                padding-left: 1%;
+            }
+        }
+
+
+
+        .btn-book-call {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #ff4081;
+            border: 2px solid #ff4081;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn-book-call:hover {
+            background-color: #ff4081;
+            color: white;
+        }
+
+
+        /* Services */
+
+
+        .section {
+            padding: 50px 0;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+
+        .tube-segment {
+            display: flex;
+            align-items: left;
+            margin-bottom: 20px;
+            margin-left: 100px;
+        }
+
+        .tube {
+            width: 50px;
+            height: 30px;
+            background: linear-gradient(135deg, #5a00ff, #340481);
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+
+        .offer {
+            font-size: 18px;
+            color: #5a00ff;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .service_intro {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0 55px 20px;
+        }
+
+        .service_intro .title h2 {
+            font-size: 2rem;
+            color: #000;
+        }
+
+        .view-all-btn {
+            margin-top: 15px;
+        }
+
+        .view-all-btn a {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #5a00ff, #340481);
+            color: white;
+            border: none;
+            font-size: 1rem;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .viewAllServices:hover,
+        .explore-more:hover {
+            background-color: black;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px;
+            position: relative;
+            flex-wrap: wrap;
+            /* Allows wrapping for better responsiveness */
+        }
+
+        .card {
+            width: 400px;
+            height: 300px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            transition: all 0.5s ease;
+            margin-bottom: 20px;
+        }
+
+        /* 
+.icon-card {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+} */
+
+        .icon-card {
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+            /* Ensure icon is above the blue cover */
+        }
+
+        /* .icon-card img {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 15px;
+} */
+
+        .icon-card img {
+            background-color: rgba(90, 0, 255, 0.1);
+            /* Pale blue background for icons */
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.5s ease;
+        }
+
+        .card.active .icon-card img {
+            background-color: rgba(255, 255, 255, 0.1);
+            /* White when active */
+        }
+
+        .wireline img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            transform: translate(-50%, -50%);
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .card-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: black;
+            transition: color 0.5s ease;
+        }
+
+        .card-content p {
+            font-size: 1rem;
+            color: black;
+            transition: color 0.5s ease;
+        }
+
+        .card.large {
+            width: 320px;
+        }
+
+        .blue-cover {
+            position: absolute;
+            background-color: liner;
+            transition: all 0.3s ease;
+            z-index: -1;
+            border-radius: 10px;
+            pointer-events: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transform: scale(0);
+        }
+
+        .blue-cover.active {
+            transform: scale(1);
+            z-index: 1;
+        }
+
+        .cards .blue-cover.active {
+            opacity: 1;
+            z-index: -1;
+        }
+
+        .tube-segment,
+        .service_intro,
+        .card {
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: all 0.6s ease;
+        }
+
+        .card {
+            transform: translateY(100px);
+        }
+
+        .card:hover .card-content h3,
+        .card:hover .card-content p {
+            color: rgb(34, 56, 180);
+        }
+
+        @media (max-width: 768px) {
+
+            /* Adjust the padding and margins for mobile view */
+            .section {
+                padding: 20px 0;
+            }
+
+            .tube-segment {
+                margin-left: 0;
+                justify-content: center;
+            }
+
+            .service_intro {
+                flex-direction: column;
+                align-items: center;
+                margin: 20px 0;
+            }
+
+            .view-all-btn {
+                margin-top: 10px;
+            }
+
+            .cards {
+                flex-direction: column;
+                /* Stack cards vertically */
+                align-items: center;
+            }
+
+            .card-content p {
+                font-size: 1rem;
+                color: black;
+                transition: color 0.5s ease;
+                text-align: center;
+                margin-bottom: 1px;
+            }
+
+            .card {
+                width: 100%;
+                max-width: 300px;
+                margin: 10px 0;
+                /* Add margin between cards */
+            }
+
+            .icon-card {
+                position: relative;
+                /* Adjust icon position for mobile */
+                top: 0;
+                left: 0;
+            }
+
+            .icon-card img {
+                width: 50px;
+                /* Adjust icon size for mobile */
+                height: 50px;
+            }
+        }
+
+        /* Testimonial */
+
+        .testimonial-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa;
+            margin-top: 100px;
+            /* padding: 50px 0; */
+        }
+
+        .testimonial-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin: 0 0;
+            background-color: #ffffff;
+        }
+
+        .testimonial-image {
+            position: relative;
+            margin-right: 30px;
+        }
+
+        .testimonial-image img {
+            border-radius: 8px;
+            width: 400px;
+            height: auto;
+            margin-left: 80px;
+            bottom: auto;
+            margin-bottom: -10px;
+
+        }
+
+
+        .background-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 100px;
+        }
+
+        .shape.blue {
+            background-color: #00aaff;
+            width: 200px;
+            height: 200px;
+            top: 20px;
+            left: -30px;
+            transform: rotate(45deg);
+        }
+
+        .shape.purple {
+            background-color: #9b59b6;
+            width: 160px;
+            height: 160px;
+            bottom: -20px;
+            left: 30px;
+            transform: rotate(45deg);
+        }
+
+        .testimonial-text {
+            flex: 1;
+            margin: 0 200px;
+        }
+
+        .testimonial-text h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-text p {
+            /*font-family: Garamond;*/
+            color: #333;
+            line-height: 1.6;
+            font-size: 20px;
+        }
+
+        .author {
+            font-weight: bold;
+            color: #007bff;
+            margin-top: 20px;
+        }
+
+        /* animated-section */
+
+
+        /* For Tablets (Portrait and Landscape) */
+        @media (max-width: 1024px) {
+
+            .testimonial-container {
+                flex-direction: column;
+            }
+
+            .testimonial-text {
+                margin: 20px 0;
+            }
+        }
+
+        /* For Mobile Phones */
+        @media (max-width: 768px) {
+            .service_intro {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .testimonial-section {
+                margin-top: 100px;
+            }
+
+            .service_intro .title h2 {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+
+            .view-all-btn {
+                margin-top: 20px;
+            }
+
+            .card {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .testimonial-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .testimonial-image {
+                margin-right: 60px;
+                margin-bottom: 20px;
+            }
+
+            .testimonial-image img {
+                /* border-radius: 8px; */
+                width: 200px;
+                height: 200px;
+                bottom: auto;
+            }
+
+            .testimonial-image img {
+                /* border-radius: 8px; */
+                width: 200px;
+                height: 200px;
+                /* padding: 10px; */
+                bottom: auto;
+                border-radius: 20px;
+                transition: background-color 0.5s ease;
+                background-color: rgba(90, 0, 255, 0.1);
+                /* Pale blue background for icons */
+            }
+
+            .testimonial-text {
+                text-align: center;
+                margin: 0;
+            }
+
+        }
+
+
+
+        /*SweetChat */
+        .fave-section {
+            display: flex;
+            justify-content: space-evenly;
+            /* Center the content */
+            align-items: center;
+            padding: 10px;
+            min-height: 60vh;
+            background-color: #14142b;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+
+
+        .content {
+            max-width: 40%;
+        }
+
+        .content h4 {
+            color: #4ac8e7;
+            font-size: 18px;
+            margin-bottom: -50px;
+            text-transform: uppercase;
+
+        }
+
+        .content h1 {
+            font-size: 48px;
+            color: white;
+            margin-bottom: -20px;
+            font-weight: bold;
+            margin-left: -330px;
+            /* Adjust this if needed */
+        }
+
+        .content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 16px;
+            color: #ffffff;
+            border: 2px solid #e91e63;
+            border-radius: 50px;
+            text-decoration: none;
+            background-color: transparent;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .image-container-phone img {
+            width: 600%;
+            /* Enlarge the image */
+            height: 600%;
+            margin-left: -20px;
+            /* margin-right: -100px; */
+        }
+
+        .cta-button:hover {
+            background-color: #e91e63;
+            border-color: #e91e63;
+        }
+
+        .right-side {
+            max-width: 50%;
+        }
+
+        .right-side .bg {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 40px;
+        }
+
+        .shape.blue {
+            background-color: #00aaff;
+            width: 80px;
+            height: 80px;
+            top: 5px;
+            left: -3px;
+            transform: rotate(45deg);
+        }
+
+        .shape.purple {
+            background-color: #9b59b6;
+            width: 60px;
+            height: 60px;
+            bottom: -5px;
+            left: 3px;
+            transform: rotate(45deg);
+        }
+
+        /* Media Queries for Mobile Optimization */
+        @media (max-width: 768px) {
+            .fave-section {
+                flex-direction: column;
+                /* Stack elements vertically */
+                padding: 20px;
+                text-align: center;
+                /* Center-align text */
+            }
+
+            .content {
+                max-width: 100%;
+                /* Allow content to take full width */
+            }
+
+            .content h1 {
+                font-size: 36px;
+                /* Reduce font size for mobile */
+                margin-left: 0;
+                /* Remove margin for mobile */
+            }
+
+            .content h4 {
+                margin-bottom: 10px;
+                /* Adjust margin */
+            }
+
+            .content p {
+                font-size: 16px;
+                /* Reduce font size for better readability */
+            }
+
+            .cta-button {
+                width: 50%;
+                /* Make button full width */
+                text-align: center;
+                margin-top: 20px;
+            }
+
+            .right-side {
+                display: none;
+                /* Hide for mobile */
+            }
+
+            .image-container-phone img {
+                width: 400%;
+                /* Scale image to fit mobile screen */
+                height: 400%;
+                /* Maintain aspect ratio */
+                /* margin: 0 auto -20px; Center image and add margin */
+                align-items: center;
+            }
+
+            .shape.blue {
+                width: 60px;
+                /* Reduce size for mobile */
+                height: 60px;
+                top: 10px;
+                left: 5px;
+            }
+
+            .shape.purple {
+                width: 50px;
+                /* Reduce size for mobile */
+                height: 50px;
+                bottom: 5px;
+                left: 15px;
+            }
+        }
+
+
+        /*Reciperush*/
+
+        .fintech {
+            display: flex;
+            justify-content: space-between;
+            /* Space between elements */
+            align-items: center;
+            /* Vertically center the text and image */
+            padding: 10px;
+            min-height: 40vh;
+            background-color: #14142b;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .laptop-image {
+            flex-shrink: 0;
+            /* Optionally control image container size */
+            width: 30%;
+            /* Adjust width as needed */
+        }
+
+        .laptop-image img {
+            width: 100%;
+            /* Make the image take up the full container width */
+            height: auto;
+            /* Maintain image aspect ratio */
+        }
+
+        .fintech-text {
+            max-width: 50%;
+            /* Increase text container width for better spacing */
+            margin-left: 20px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .fintech-text h4 {
+            color: #faaa41;
+            font-size: 18px;
+            margin-bottom: -60px;
+            text-transform: uppercase;
+        }
+
+        .fintech-text h1 {
+            font-size: 60px;
+            /* Reduce size for better balance */
+            color: white;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .fintech-text p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: white;
+            margin-top: 0;
+            margin-bottom: 40px;
+        }
+
+
+        /* Media Queries for Mobile Optimization */
+        @media (max-width: 768px) {
+            .fintech {
+                flex-direction: column;
+                /* Stack elements vertically */
+                justify-content: center;
+                /* Center content along the main axis */
+                align-items: center;
+                /* Center content along the cross axis */
+                text-align: center;
+                /* Center align text */
+                padding: 20px;
+                min-height: 60vh;
+            }
+
+            .laptop-image img {
+                width: 100%;
+                /* Make sure it fits within the mobile screen */
+                max-width: 300px;
+                /* Set a reasonable maximum width */
+                margin: 0 auto 20px;
+                /* Center image and add bottom margin */
+            }
+
+            .fintech-text {
+                max-width: 100%;
+                margin: 0;
+            }
+
+            .fintech-text h1 {
+                font-size: 40px;
+                /* Smaller font size for mobile */
+                text-align: center;
+            }
+
+            .fintech-text h4 {
+                margin-bottom: -10px;
+            }
+
+            .fintech-text p {
+                font-size: 16px;
+                /* Smaller font size for mobile */
+            }
+        }
+
+
+
+        @keyframes bubbleAnimation {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        /* enquiery */
+
+        .animated-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+
+        .image-container {
+            flex: 1;
+            position: relative;
+            transform: translateX(-100%);
+            transition: transform 1s ease-in-out;
+        }
+
+        .image-container img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .text-container {
+            flex: 1;
+            padding-left: 50px;
+            transform: translateX(100%);
+            transition: transform 1s ease-in-out;
+        }
+
+        .text-container h3 {
+            color: #6c63ff;
+            margin-bottom: 20px;
+            margin-top: -5px;
+            margin-left: 10px;
+        }
+
+        .text-container h1 {
+            margin-bottom: 10px;
+            font-size: 3rem;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .text-container p {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .service-cards {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .service-card {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .service-card .icon {
+            font-size: 30px;
+            color: #6c63ff;
+            margin-right: 10px;
+        }
+
+
+        .service-card img {
+            background-color: rgba(90, 0, 255, 0.1);
+            /* Pale blue background for icons */
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.5s ease;
+            margin-top: -100px;
+        }
+
+        .animation-bullet {
+            display: flex;
+        }
+
+        .bullet {
+            height: 20px;
+            width: 20px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #5a00ff, #340481);
+
+        }
+
+        .explore-more {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            background: linear-gradient(135deg, #5a00ff, #340481);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            height: fit-content;
+        }
+
+        .explore-more:hover {
+            background-color: #000;
+        }
+
+        .arrow {
+            margin-left: 10px;
+        }
+
+        /* Media Queries for Mobile Optimization */
+        @media (max-width: 768px) {
+            .animated-section {
+                flex-direction: column;
+                align-items: center;
+                /* Center align for mobile */
+            }
+
+            .image-container {
+                transform: none;
+                /* Remove translation */
+                margin-bottom: 20px;
+                /* Add spacing between image and text */
+            }
+
+            .text-container {
+                transform: none;
+                /* Remove translation */
+                padding-left: 0;
+                /* Remove left padding for mobile */
+                text-align: center;
+                /* Center text for mobile */
+            }
+
+            .text-container h1 {
+                font-size: 24px;
+                /* Reduce font size for mobile */
+                text-align: center;
+            }
+
+            .text-container h3 {
+                font-size: 18px;
+                /* Reduce font size for mobile */
+            }
+
+            .text-container p {
+                font-size: 16px;
+                /* Reduce font size for mobile */
+            }
+
+            .service-cards {
+                flex-direction: column;
+                /* Stack service cards vertically */
+                align-items: center;
+                /* Center align service cards */
+            }
+
+            .service-card {
+                margin-right: 0;
+                /* Remove right margin for mobile */
+                margin-bottom: 20px;
+                /* Add spacing between service cards */
+            }
+
+            .tool-icon {
+                margin-top: -40px;
+            }
+
+            .tool-icon-up {
+                margin-top: -40px;
+            }
+
+            .explore-more {
+                width: 30%;
+                /* Make button full width */
+                text-align: center;
+                margin-top: 20px;
+                font-size: 10px;
+                height: fit-content;
+            }
+        }
+
+        .ceo-frame {
+            display: flex;
+            align-items: center;
+            /* Align items vertically centered */
+            gap: 10px;
+            /* Adjust space between image and text */
+        }
+
+        .ceo-frame img {
+            width: 80px;
+            /* Set size for the round frame */
+            height: 80px;
+            border-radius: 50%;
+            /* Makes the image round */
+            object-fit: cover;
+            /* Ensures the image fits within the frame */
+        }
+
+        .ceo-info {
+            display: flex;
+            flex-direction: column;
+            /* Stack name and designation vertically */
+        }
+
+        .ceo-info p {
+            margin: 0;
+            font-size: 16px;
+            /* Adjust text size */
+            color: #333;
+            /* Adjust text color */
+        }
+
+        .ceo-info p:first-child {
+            font-weight: bold;
+            /* Bold the name */
+        }
+
+        .ceo-info p:last-child {
+            font-size: 14px;
+            /* Slightly smaller font for the designation */
+            color: #666;
+            /* Different color for the designation */
+        }
+
+        .explore-ceo {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .ceo-frame {
+                margin-top: 10px;
+                /* Adjust spacing for mobile */
+            }
+
+            .ceo-frame img {
+                width: 80px;
+                height: 80px;
+                /* Reduce size for mobile */
+            }
+
+            .ceo-frame p {
+                font-size: 12px;
+                /* Adjust text size for mobile */
+            }
+        }
+
+
+        /* Team Section */
+        .team-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            background-color: #ebf2fa;
+        }
+
+        .team-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .team-img {
+            padding: 20px;
+            background-color: #2a9dff;
+        }
+
+        .team-img img {
+            border-radius: 50%;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .team-content {
+            padding: 20px;
+        }
+
+        .team-content h3 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .team-content p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .email-link {
+            display: inline-block;
+            font-weight: bold;
+            color: #ff4a8d;
+            text-decoration: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            background-color: #fff;
+            border: 2px solid #ff4a8d;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .email-link:hover {
+            background-color: #ff4a8d;
+            color: #fff;
+        }
+
+
+        /* Banner section */
+        /* General styling */
+        .banner-section {
+            padding: 20px;
+            position: relative;
+            width: auto;
+        }
+
+        .banner-container {
+            display: flex;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            height: 300px;
+            /* Adjust this as necessary */
+            gap: 5px;
+            /* Add spacing between the banners */
+            margin-bottom: 200px;
+        }
+
+        .banner {
+            flex: 0 0 20%;
+            /* Makes sure all banners are the same width */
+            position: relative;
+            transition: transform 0.5s ease-in-out;
+            margin-right: 5px;
+            /* Small margin to create space between banners */
+        }
+
+        .banner:last-child {
+            margin-right: 0;
+            /* Removes margin for the last banner to avoid extra space */
+        }
+
+        .banner img {
+            width: 100%;
+            height: 100%;
+            /* Ensure all images have the same height */
+            object-fit: cover;
+            /* Crop the images if they don't fit perfectly */
+        }
+
+        /* Transparent Cover for Card Banner */
+        .card-banner {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            color: #fff;
+            z-index: 10;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+            /* Transparent gradient cover */
+            padding: 20px;
+            border-radius: 0 0 5px 5px;
+            /* Rounded corners on bottom */
+            text-align: left;
+            height: 100%;
+            /* Full cover */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            /* Aligns content at the bottom */
+        }
+
+        .card-banner span {
+            font-size: 0.9rem;
+            color: #7f44ee;
+            /* Slightly lighter color for the subtitle */
+            font-weight: bold;
+        }
+
+        .card-banner h3 {
+            margin: 10px 0 0 0;
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
+
+        .B-view-all-btn {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+        }
+
+        .banner-tube {
+            display: flex;
+        }
+
+        /* General styles for desktop */
+        .banner-tube,
+        .Banner-intro {
+            display: flex;
+            align-items: left;
+            /* justify-content: space-evenly; */
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .banner-tube .B-tube,
+        .banner-tube .B-cases {
+            display: inline-block;
+        }
+
+        /* Added Styles */
+        .B-tube {
+            display: inline-block;
+            padding: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #5a00ff, #340481);
+        }
+
+        .B-cases {
+            padding: 10px;
+            text-transform: uppercase;
+            font-size: 1rem;
+            color: #6c63ff;
+            margin-top: -6px;
+        }
+
+        .B-title {
+            text-align: left;
+            font-size: 2rem;
+            color: #333;
+            margin-top: -100px;
+        }
+
+        .B-view-all-btn {
+            display: inline-block;
+            margin-top: 20px;
+
+        }
+
+        .BviewAllServices {
+            text-decoration: none;
+            font-weight: bold;
+            background: linear-gradient(135deg, #5a00ff, #340481);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .B-arrow {
+            margin-left: 10px;
+        }
+
+
+        /* Other existing styles... */
+
+        /* Mobile view adjustments */
+
+        @media (max-width: 768px) {
+            .banner-container {
+                display: flex;
+                overflow: hidden;
+                position: relative;
+                width: 100%;
+                height: 200px;
+                gap: 5px;
+                /* Maintain the gap on mobile */
+                margin-bottom: 10px;
+            }
+
+            .banner {
+                flex: 0 0 50%;
+                margin-right: 5px;
+                /* Add margin between banners */
+            }
+
+            .banner:last-child {
+                margin-right: 0;
+                /* Remove margin for the last banner */
+            }
+
+
+            .banner-tube {
+                margin-bottom: -30px;
+            }
+
+            .B-title {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+                text-align: left;
+                /* Adjust title alignment for mobile */
+                margin-top: -40px
+            }
+
+            .BviewAllServices {
+                font-size: 0.7rem;
+                padding: 8px 15px;
+            }
+
+
+            .B-view-all-btn {
+                margin-top: 200px;
+                /* Adds some space between the title and the button */
+                text-align: center;
+
+                display: block;
+                /* Ensures it takes up full width in mobile view */
+            }
+
+            .B-arrow {
+                font-size: 1.2rem;
+            }
+
+            /* Other mobile-specific styles... */
+        }
+
+        /* Extra small devices adjustments... */
+        @media (max-width: 480px) {
+            .banner-container {
+                height: 150px;
+                gap: 5px;
+                /* Maintain the gap on extra small devices */
+            }
+
+            .banner {
+                flex: 0 0 100%;
+                /* Show one banner at a time */
+                margin-right: 0;
+                /* No margin when banners stack vertically */
+            }
+
+            /* Other extra small screen adjustments... */
+        }
+
+
+        /* Contact Section */
+
+        #contact {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 40px 20px;
+            background-color: #e2f1fa;
+            text-align: center;
+        }
+
+        /* Contact Section Text */
+        .contact-section h2 {
+            font-size: 24px;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .contact-section h2 strong {
+            font-size: 28px;
+            color: #000;
+        }
+
+        .contact-section p {
+            font-size: 18px;
+            color: #b4b4b4;
+            margin-bottom: 20px;
+        }
+
+        .contact-section .icon-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .contact-section .icon-text i {
+            font-size: 24px;
+            margin-right: 10px;
+            color: #ff4a8d;
+        }
+
+        .contact-section .video {
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .contact-section iframe {
+            width: 100%;
+            height: 266;
+            max-width: 560px;
+            max-height: 315px;
+        }
+
+
+        /* Play Button */
+        .contact-section .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 0, 127, 0.8);
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            /* Ensure the button is above the video */
+        }
+
+        /* Hide the play button when clicked */
+        .contact-section .play-button.hidden {
+            display: none;
+        }
+
+
+        /* Forms */
+        .form-container {
+            background-color: white;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            /* Full width on mobile */
+            max-width: 400px;
+            /* Maintain a max width on larger screens */
+            margin: 20px auto;
+            /* Center the form on mobile */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        h3 {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .form-check {
+            display: flex;
+            align-items: center;
+        }
+
+        .form-check label {
+            margin-left: 5px;
+            font-weight: normal;
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #ff4081;
+            border: 2px solid #ff4081;
+            border-radius: 20px;
+            text-decoration: none;
+            background-color: transparent;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #ff4081;
+            color: white;
+        }
+
+        /* Responsive Adjustments for Mobile View */
+        @media (max-width: 768px) {
+            #contact {
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+            }
+
+            .contact-section h2 {
+                font-size: 20px;
+                /* Smaller text size for mobile */
+            }
+
+            .contact-section h2 strong {
+                font-size: 24px;
+                /* Smaller strong text */
+            }
+
+            .contact-section p {
+                font-size: 16px;
+                /* Smaller paragraph size */
+            }
+
+            .contact-section iframe {
+                width: 100%;
+                /* Full width for iframe */
+                height: auto;
+                /* Responsive height */
+                max-width: 100%;
+                /* Ensure it fits within the container */
+            }
+
+            .form-container {
+                width: 100%;
+                /* Full width for form container on mobile */
+                padding: 15px;
+            }
+
+            .btn {
+                font-size: 14px;
+                /* Smaller button text size */
+                padding: 8px 16px;
+            }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 480px) {
+            .contact-section h2 {
+                font-size: 18px;
+            }
+
+            .contact-section h2 strong {
+                font-size: 22px;
+            }
+
+            .contact-section p {
+                font-size: 14px;
+            }
+
+            .contact-section iframe {
+                width: 100%;
+                /* Full width for iframe */
+                height: auto;
+                /* Responsive height */
+            }
+
+            .form-container {
+                padding: 10px;
+            }
+
+            .btn {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+        }
+
+        /* Footer Layout */
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            /* Spread columns evenly */
+            align-items: flex-start;
+            /* Align columns to the top */
+            gap: 20px;
+            /* Adds space between each column */
+            flex-wrap: wrap;
+            /* Ensures content wraps when necessary */
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            flex: 1;
+            /* Ensures logo occupies 1 part of the space */
+            min-width: 200px;
+            /* Makes sure the logo doesn't shrink too much */
+        }
+
+        .footer-column {
+            flex: 1;
+            /* Each column will occupy an equal amount of space */
+            min-width: 150px;
+            /* Prevents columns from shrinking below 150px */
+            margin-bottom: 20px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: pink;
+        }
+
+        /* Social and Copyright Section */
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            /* Space the elements horizontally */
+            align-items: center;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-bottom p {
+            margin: 0;
+            flex: 1;
+            text-align: left;
+            color: #fff;
+        }
+
+        .footer-policies {
+            flex: 1;
+            text-align: center;
+        }
+
+        .footer-policies a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-policies a:hover {
+            color: pink;
+        }
+
+        .social-icons {
+            flex: 1;
+            text-align: right;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            background-color: #444;
+            color: #fff;
+            text-align: center;
+            border-radius: 50%;
+            margin-left: 10px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: #ff007f;
+            color: #fff;
+        }
+
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: row;
+                /* Keeps the columns side by side even on smaller screens */
+                flex-wrap: wrap;
+                /* Allows wrapping on smaller screens */
+            }
+
+            .footer-column {
+                flex: 1 1 calc(50% - 20px);
+                /* Adjust to two columns in smaller screens */
+                margin-bottom: 20px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-bottom p,
+            .footer-policies,
+            .social-icons {
+                text-align: center;
+                margin-bottom: 10px;
+            }
+
+            .social-icons a {
+                margin: 0 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav id="navbar">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'Assest/Numjin_logo_white.png' %}" alt="Navbar Image" class="navbar-image">
+            </a>
+            <div class="menu-icon" id="menu-icon">&#9776;</div>
+            <ul id="nav-links">
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'services' %}">Services</a></li>
+                <li><a href="{% url 'post_list' %}">Blog</a></li>
+                <li><a href="{% url 'book' %}" class="book-call">Book a Call</a></li>
+            </ul>
+        </nav>
+
+
+        <div class="video-section">
+            <video autoplay muted loop playsinline class="background-video">
+                <source src="{% static 'Assest/background_video.mp4' %}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="overlay">
+                <div class="overlay-content">
+                    <h3>Welcome To Numjin Tech</h3>
+                    <h1>Where Innovation Meets <br> Excellence in Tech and Digital Solutions</h1>
+                    <a href="{% url 'book' %}" class="btn-book-call">Book a Call</a>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <!-- service -->
+    <div class="section" id="services-section">
+        <div class="tube-segment">
+            <div class="tube"></div>
+            <div class="offer">
+                What we offer
+            </div>
+        </div>
+
+        <div class="service_intro">
+            <div class="title">
+                <h2>Excellent IT Services</h2>
+            </div>
+            <div class="view-all-btn">
+                <a href="{% url 'services' %}" class="viewAllServices">
+                    view All Services
+                    <span class="arrow">→</span>
+
+                </a>
+
+            </div>
+        </div>
+
+        <div class="cards">
+            <div class="card">
+                <div class="icon-card">
+                    <img src="{% static 'Assest/tools5.svg' %}" alt="IT Management Icon">
+                </div>
+                <div class="wireline">
+                    <img src="{% static 'Assest/wre1.svg' %}" alt="Wireline Background">
+                </div>
+                <div class="card-content">
+                    <h3>IT Services</h3>
+                    <p>
+                        We provide comprehensive IT solutions tailored to your business needs. From network
+                        infrastructure and cybersecurity to cloud services and software development, our team of experts
+                        delivers reliable and efficient support.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-card">
+                    <img src="{% static 'Assest/cyber1.svg' %}" alt="Cyber Security Icon">
+                </div>
+                <div class="wireline">
+                    <img src="{% static 'Assest/wre1.svg' %}" alt="Wireline Background">
+                </div>
+                <div class="card-content">
+                    <h3> School Portal management System</h3>
+                    <p> We provide comprehensive services for deploying and managing school portals, ensuring a seamless
+                        transition to a digital platform.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="icon-card">
+                    <img src="{% static 'Assest/web5.svg' %}" alt="Web Development Icon">
+                </div>
+                <div class="wireline">
+                    <img src="{% static 'Assest/wre1.svg' %}" alt="Wireline Background">
+                </div>
+                <div class="card-content">
+                    <h3>CCTV/Solar System Installation</h3>
+                    <p>Integrated solar and CCTV installation services, providing comprehensive energy efficiency and
+                        security solutions. </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimony -->
+
+    <div class="testimonial-section">
+        <div class="testimonial-container">
+            <div class="testimonial-image">
+                <img src="{% static 'Assest/CEO.png' %}" alt="Person Image">
+                <div class="background-shapes">
+                    <div class="shape blue"></div>
+                    <div class="shape purple"></div>
+                </div>
+            </div>
+            <div class="testimonial-text">
+                <h2>SWEETCHAT</h2>
+                <p>
+                    We are very happy to work with Numjin Tech. The collaboration goes far beyond a standard IT service:
+                    with Numjin Tech we have a sparring partner that challenges us in our product decisions and is truly
+                    passionate about the results developed. The level of professionalism and dedication is exceptional
+                    in this industry and we are eager to strengthen our collaboration in the future.
+                </p>
+                <div class="author">Solomon Samuel – SweetChat, Co-Founder</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fave Section -->
+
+    <div class="fave-section">
+        <div class="content">
+            <h4>Social Media</h4>
+            <h1>SweetChat</h1>
+            <p>
+                SweetChat is a social media App that enables user to have and exciting interacting session with their
+                friends on the plateform with many eciting features and a beautiful UI/UX.
+            </p>
+            <a href="#" class="cta-button">See Case Study</a>
+        </div>
+        <div class="image-container-phone">
+            <img src="{% static 'Assest/sweet.svg' %}" alt="Phone Screenshot 1" class="phone-image">
+        </div>
+
+    </div>
+
+    <div class="fintech">
+        <div class="laptop-image">
+            <img src="../../static/Assest/reciperush.png" alt="Fave laptop image">
+        </div>
+
+        <div class="fintech-text">
+            <h4>CATERING</h4>
+            <h1>Reciperush</h1>
+            <p>
+                Reciperush is a one stop site that helps people find their away around new and exciting recipes to spice
+                up their food life.
+            </p>
+            <a href="#" class="cta-button">See Case Study</a>
+        </div>
+    </div>
+
+
+
+    <!-- 24/7 -->
+    <div class="animated-section">
+        <div class="image-container" id="image-container">
+            <img src="{% static 'Assest/247(1).png' %}" alt="Business Team">
+        </div>
+
+        <div class="text-container" id="text-container">
+            <div class="animation-bullet">
+                <div class="bullet"></div>
+                <h3>ABOUT NUMJIN TECH AND DIGITAL SERVICES</h3>
+            </div>
+            <h1>We Strive To Offer Best ICT Solutions</h1>
+            <p>
+                At Numjin Tech and Digital Services, we specialize in creating captivating digital experiences that not
+                only impress visually but also deliver tangible results. Our team of passionate designers, developers,
+                and strategists offers a comprehensive suite of web design services tailored to your specific needs.
+                We're dedicated to elevating your online presence.
+            </p>
+            <div class="service-cards">
+                <div class="service-card">
+                    <div class="icon"></div>
+                    <img src="{% static 'Assest/tools5.svg' %}" class="tool-icon-up" alt="tool icon">
+                    <div>
+                        <h4>Best Services</h4>
+                        <p> Empowering your business with cutting-edge technology solutions tailored for tomorrow’s
+                            challenges</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="icon"></div>
+                    <img src="{% static 'Assest/call-center4.svg' %}" class="tool-icon" alt="call center icon">
+                    <div>
+                        <h4>24/7 Call Support</h4>
+                        <p>Always here when you need us—expert tech support available 24/7 to keep your business running
+                            smoothly.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="explore-ceo">
+                <a href="{% url 'about' %}" class="explore-more">
+                    Explore More
+                    <span class="arrow">→</span>
+                </a>
+
+                <div class="ceo-frame">
+                    <img src="{% static 'Assest/Founder.jpg' %}" alt="CEO Image">
+                    <div class="ceo-info">
+                        <p>Ndiana Asuquo</p>
+                        <p>CEO, NUMJIN TECH</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team section -->
+
+    <div class="team-section">
+        <div class="team-card">
+            <div class="team-img" style="background-color: #2a9dff;">
+                <img src="{% static 'Assest/Blessing_Blaise_Obot.jpg' %}" alt="Team Member 1">
+            </div>
+            <div class="team-content">
+                <h3>Need a team?</h3>
+                <p>I will help you build a team of top talent to boost your business reach its potential.</p>
+                <a href="mailto:blaiseblessing31@example.com" class="email-link">EMAIL Blessing</a>
+            </div>
+        </div>
+
+        <div class="team-card">
+            <div class="team-img" style="background-color: #ffc700;">
+                <img src="{% static 'Assest/Prince.png' %}" alt="Team Member 2">
+            </div>
+            <div class="team-content">
+                <h3>Building an MVP?</h3>
+                <p>Looking to build fast and reduce your time to market? Drop me a message.</p>
+                <a href="mailto:etimprince@numjinict.com.ng" class="email-link">EMAIL Prince</a>
+            </div>
+        </div>
+
+        <div class="team-card">
+            <div class="team-img" style="background-color: #ff4a8d;">
+                <img src="{% static 'Assest/Ekwere.jpg' %}" alt="Team Member 3">
+            </div>
+            <div class="team-content">
+                <h3>Talk tech?</h3>
+                <p>I can help you find the right technical requirements for your product.</p>
+                <a href="mailto:ekwereabasi@numjinict.com.ng" class="email-link">EMAIL Ekwere</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Banner -->
+
+    <section class="banner-section">
+        <div class="banner-tube">
+            <div class="B-tube"></div>
+            <div class="B-cases">
+                From our case studies
+            </div>
+        </div>
+
+        <div class="Banner-intro">
+            <div class="B-title">
+                <h2>We Deliver Best Solution</h2>
+            </div>
+            <div class="B-view-all-btn">
+                <a href="#" class="BviewAllServices">
+                    View All Services
+                    <span class="B-arrow">→</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="banner-container">
+            <div class="banner">
+                <img src="{% static 'Assest/Web_dev.png' %}" alt="Web Development">
+                <div class="card-banner">
+                    <span>Solution</span>
+                    <h3>Web Development</h3>
+                </div>
+            </div>
+            <div class="banner">
+                <img src="{% static 'Assest/Network.png' %}" alt="Network Security">
+                <div class="card-banner">
+                    <span>Security</span>
+                    <h3>Network Security</h3>
+                </div>
+            </div>
+            <div class="banner">
+                <img src="{% static 'Assest/IT_services.png' %}" alt="IT Management">
+                <div class="card-banner">
+                    <span>Solution</span>
+                    <h3>IT Management</h3>
+                </div>
+            </div>
+            <div class="banner">
+                <img src="{% static 'Assest/Plat_Integration.png' %}" alt="Platform Integration">
+                <div class="card-banner">
+                    <span>Technology</span>
+                    <h3>Platform Integration</h3>
+                </div>
+            </div>
+            <div class="banner">
+                <img src="{% static 'Assest/Hospitality.png' %}" alt="Hospitality Management System">
+                <div class="card-banner">
+                    <span>Solution</span>
+                    <h3>Hospitality Management System</h3>
+                </div>
+            </div>
+            <div class="banner">
+                <img src="{% static 'Assest/App_Dev.png' %}" alt="App Development">
+                <div class="card-banner">
+                    <span>Solution</span>
+                    <h3>App Development</h3>
+                </div>
+            </div>
+            <div class="banner">
+                <img src="{% static 'Assest/School_manage.png' %}" alt="School Management System">
+                <div class="card-banner">
+                    <span>Solution</span>
+                    <h3>School Management System</h3>
+                </div>
+            </div>
+            <div class="banner">
+                <img src="{% static 'Assest/Game.png' %}" alt="Game Development">
+                <div class="card-banner">
+                    <span>Solution</span>
+                    <h3>Game Development</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- contact -->
+
+    <section id="contact">
+
+        <div class="contact-section">
+            <h2>Talk to us and<br><strong>get your project moving!</strong></h2>
+            <div class="icon-text">
+                <i class="fas fa-check-circle"></i>
+                <p>We will respond to you within 24 hours.</p>
+            </div>
+            <div class="icon-text">
+                <i class="fas fa-check-circle"></i>
+                <p>You'll be talking to product and tech experts (no account managers).</p>
+            </div>
+            <div class="video">
+                <iframe id="youtube-video" width="560" height="315"
+                    src="https://www.youtube.com/embed/NN7YEIlc-Oc?si=wR0JggKiv5hwwGLw&enablejsapi=1"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <div class="play-button" id="play-button">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <h1>Project Inquiry Form</h1>
+            <form method="post" action="{% url 'index' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_name">Name</label>
+                    {{ form.name }}
+                </div>
+                <div class="form-group">
+                    <label for="id_email">Email</label>
+                    {{ form.email }}
+                </div>
+                <div class="form-group">
+                    <label for="id_budget_size">Budget Size</label>
+                    {{ form.budget_size }}
+                </div>
+                <div class="form-group">
+                    <label for="id_description">Project Description</label>
+                    {{ form.description }}
+                </div>
+                <div class="form-group">
+                    <label for="id_referral_source">How did you hear about us?</label>
+                    {{ form.referral_source }}
+                </div>
+                <div class="form-group form-check">
+                    <label for="id_requires_nda">{{ form.requires_nda }}</label>
+                    <h3>This Project requires an NDA</h3>
+                </div>
+                <button type="submit" class="btn">Submit </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer section -->
+
+    <footer style="background-color: #1a1a1a; color: #fff; padding: 40px 20px;">
+        <div class="footer-content">
+            <!-- Logo Section -->
+            <div class="footer-logo">
+                <img src="{% static 'Assest/Numjin-logo.png' %}" alt="Company Logo" style="width: 100px;">
+                <address style="color: #bbb; margin-top: 20px;">
+                    49 Udotung Ubo Street,<br>
+                    Uyo, Akwa Ibom State, 520101<br>
+                    Nigeria, +234 906 3632 388
+                </address>
+            </div>
+
+            <!-- Links Section -->
+            <div class="footer-links"
+                style="display: flex; flex: 3; justify-content: space-around; flex-wrap: wrap; min-width: auto;">
+                <div class="footer-column">
+                    <h3>Global</h3>
+                    <ul>
+                        <li><a href="#">Work</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Newsletter</a></li>
+                        <li><a href="#">News</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Technology</h3>
+                    <ul>
+                        <li><a href="#">Tech</a></li>
+                        <li><a href="#">Open Source</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">School Portal Management System </a></li>
+                        <li><a href="#">CCTV Camera Installation</a></li>
+                        <li><a href="#">Solar Installation</a></li>
+                        <li><a href="#">Web development</a></li>
+                        <li><a href="#">Mobile Apps</a></li>
+                        <li><a href="#">Hotel and Hostel Management system</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Build</h3>
+                    <ul>
+                        <li><a href="#">Play with Pricing</a></li>
+                        <li><a href="#">Book a Call</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social and Copyright Section -->
+        <div class="footer-bottom">
+            <p>© 2024 Numjinict.com.ng. All rights reserved.</p>
+            <div class="footer-policies">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Security</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=100063877700011&mibextid=ZbWKwL" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script>
+
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            const logo = document.querySelector('.navbar-image');
+
+            if (window.scrollY > 50) { // Adjust this value as needed
+                navbar.classList.add('scrolled');
+                logo.src = '{% static 'Assest / blue.png' %}'; // Path to the scrolled logo image
+            } else {
+                navbar.classList.remove('scrolled');
+                logo.src = '{% static 'Assest / Numjin_logo_white.png' %}'; // Path to the original logo image
+            }
+        });
+
+        const menuIcon = document.getElementById("menu-icon");
+        const navLinks = document.getElementById("nav-links");
+
+        menuIcon.addEventListener("click", function () {
+            navLinks.classList.toggle("active");
+        });
+
+        // service
+
+
+        // Get references to elements
+        const section = document.getElementById('services-section');
+        const tubeSegment = document.querySelector('.tube-segment');
+        const serviceIntro = document.querySelector('.service_intro');
+        const cards = document.querySelectorAll('.card');
+        const blueCover = document.createElement('div');
+        blueCover.classList.add('blue-cover');
+        document.body.appendChild(blueCover);
+
+        // Function to check if the section is in view
+        function isSectionInView() {
+            const rect = section.getBoundingClientRect();
+            return rect.top < (window.innerHeight || document.documentElement.clientHeight);
+        }
+
+        // Add fly-in effect to each element with a slight delay for individual animations
+        function triggerFlyIn() {
+            // Fly-in for tube segment
+            tubeSegment.style.opacity = '1';
+            tubeSegment.style.transform = 'translateX(0)';
+
+            // Fly-in for service intro
+            setTimeout(() => {
+                serviceIntro.style.opacity = '1';
+                serviceIntro.style.transform = 'translateX(0)';
+            }, 300);
+
+            // Fly-in for cards with delay between each
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 300 * (index + 2)); // Delay each card by 300ms
+            });
+        }
+
+        // Listen to scroll event to trigger fly-in animations when section comes into view
+        window.addEventListener('scroll', () => {
+            if (isSectionInView()) {
+                triggerFlyIn();
+            }
+        });
+
+        // Initial setup to hide the elements before they fly in
+        window.onload = () => {
+            // Set initial styles for tubeSegment and serviceIntro
+            tubeSegment.style.opacity = '0';
+            tubeSegment.style.transform = 'translateX(-100px)';
+
+            serviceIntro.style.opacity = '0';
+            serviceIntro.style.transform = 'translateX(-100px)';
+
+            // Set initial styles for each card
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(100px)';
+            });
+
+            // Trigger the fly-in animation if the section is already in view
+            if (isSectionInView()) {
+                triggerFlyIn();
+            }
+        };
+
+        // JavaScript to manage the blue cover movement and text color on hover
+        cards.forEach(card => {
+            card.addEventListener('mouseover', () => {
+                const rect = card.getBoundingClientRect();
+                blueCover.style.top = `${rect.top + window.scrollY}px`; // Ensure it takes scroll into account
+                blueCover.style.left = `${rect.left + window.scrollX}px`; // Ensure it takes scroll into account
+                blueCover.style.width = `${rect.width}px`;
+                blueCover.style.height = `${rect.height}px`;
+                blueCover.classList.add('active');
+            });
+
+            card.addEventListener('mouseleave', () => {
+                blueCover.classList.remove('active');
+            });
+        });
+
+        // Function to hide play button and start the YouTube video
+        document.getElementById('play-button').addEventListener('click', function () {
+            var iframe = document.getElementById('youtube-video');
+            var playButton = document.getElementById('play-button');
+
+            // Hide the play button
+            playButton.classList.add('hidden');
+
+            // Play the video by calling YouTube API
+            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        });
+
+        // 24/7
+
+        window.addEventListener('scroll', function () {
+            var imageContainer = document.getElementById('image-container');
+            var textContainer = document.getElementById('text-container');
+
+            var sectionTop = imageContainer.getBoundingClientRect().top;
+            var screenPosition = window.innerHeight / 1.2;
+
+            if (sectionTop < screenPosition) {
+                imageContainer.style.transform = 'translateX(0)';
+                textContainer.style.transform = 'translateX(0)';
+            }
+        });
+
+        // Bannner
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const bannerContainer = document.querySelector(".banner-container");
+            const banners = document.querySelectorAll(".banner");
+
+            let scrollSpeed = 1;  // Speed of the scroll
+            let bannerWidth = banners[0].offsetWidth;  // Get the width of each banner
+            let currentPosition = 0;
+
+            function scrollBanners() {
+                currentPosition -= scrollSpeed;
+
+                // Reset position to give infinite scroll effect
+                if (Math.abs(currentPosition) >= bannerWidth) {
+                    bannerContainer.appendChild(bannerContainer.firstElementChild);
+                    currentPosition += bannerWidth;
+                }
+
+                bannerContainer.style.transform = `translateX(${currentPosition}px)`;
+                requestAnimationFrame(scrollBanners);
+            }
+
+            // Start scrolling
+            scrollBanners();
+
+            // Optional: Pause on hover
+            bannerContainer.addEventListener("mouseover", () => scrollSpeed = 0);
+            bannerContainer.addEventListener("mouseout", () => scrollSpeed = 1);
+        });
+
+
+
+        document.getElementById('playButton').addEventListener('click', function () {
+            var video = document.getElementById('promoVideo');
+            var playButton = document.getElementById('playButton');
+
+            video.play();
+            playButton.style.display = 'none';
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,635 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Index</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+
+
+        /* Navbar */
+        #navbar {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10px;
+            background-color: transparent;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1000;
+        }
+
+        #navbar img.navbar-image {
+            height: 40px;
+        }
+
+        #navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 10px 10px;
+        }
+
+        #navbar.scrolled ul li a {
+            color: #000;
+        }
+
+        #navbar ul li a {
+            text-decoration: none;
+            color: black;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        #navbar ul li a:hover {
+            color: pink;
+        }
+
+
+        .book-call {
+            background-color: #ff4081;
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .book-call:hover {
+            background-color: deeppink;
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: rgb(107, 103, 103);
+
+        }
+
+
+        @media (min-width: 769px) {
+            #navbar ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                gap: 20px;
+            }
+        }
+
+
+        /* Media Query for smaller screens (up to 768px) */
+        @media (max-width: 768px) {
+            #navbar {
+                justify-content: space-between;
+            }
+
+            .menu-icon {
+                display: block;
+                margin-right: 30px;
+            }
+
+            /* Add this style to remove the bullet points */
+            #navbar ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            #navbar ul li a {
+                text-decoration: none;
+                color: black;
+                font-size: 16px;
+                transition: color 0.3s ease;
+            }
+
+            #nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: rgba(255, 255, 255, 0.9);
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                backdrop-filter: blur(10px);
+                padding: 10px;
+                z-index: 999;
+            }
+
+            #nav-links.active {
+                display: flex;
+            }
+
+            #navbar img.navbar-image {
+                height: 30px;
+            }
+
+            .book-call {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+        }
+
+
+        /* Header */
+
+
+        /* Contact Section */
+
+        #contact {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 300px 20px;
+            background-color: #e2f1fa;
+            text-align: center;
+
+        }
+
+        /* Main styling for the text container */
+        .text-container {
+            text-align: center;
+            z-index: 1;
+            position: relative;
+            margin: 0 auto;
+            max-width: 90%;
+        }
+
+        /* Styling for h1 and p */
+        h1,
+        p {
+            margin: 0;
+            padding: 0;
+            color: #0d0d33;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1.2rem;
+        }
+
+        /* Star backgrounds */
+        .star1,
+        .star2,
+        .star3 {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+
+        /* Position and size of the stars */
+        .star1 {
+            width: 60px;
+            height: 60px;
+            background-color: #ffde17;
+            /* Bright yellow star */
+            top: 10%;
+            left: 5%;
+        }
+
+        .star2 {
+            width: 40px;
+            height: 40px;
+            background-color: #ff007f;
+            /* Pink star */
+            top: 30%;
+            right: 5%;
+        }
+
+        .star3 {
+            width: 70px;
+            height: 70px;
+            background-color: #00ffcc;
+            /* Bright cyan star */
+            bottom: 10%;
+            left: 30%;
+        }
+
+        /* Responsive Design for Mobile */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            /* Adjust star sizes and positions for mobile */
+            .star1 {
+                width: 40px;
+                height: 40px;
+                top: 15%;
+                left: 10%;
+            }
+
+            .star2 {
+                width: 30px;
+                height: 30px;
+                top: 35%;
+                right: 10%;
+            }
+
+            .star3 {
+                width: 50px;
+                height: 50px;
+                bottom: 15%;
+                left: 40%;
+            }
+        }
+
+
+        /* Styling for the container */
+        .text-container {
+            text-align: center;
+            z-index: 1;
+            position: relative;
+            margin: 0 auto;
+            max-width: 90%;
+        }
+
+        /* Styling for h1 and p */
+        h1,
+        p {
+            margin: 0;
+            padding: 0;
+            color: #0d0d33;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* Styling for the 'Return to home page' arrow */
+        .back-home {
+            display: inline-block;
+            font-weight: bold;
+            text-decoration: none;
+            color: #ff007f;
+            /* Pink color for text */
+            margin-top: 20px;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-home:hover {
+            color: #ffde17;
+            /* Change to bright yellow on hover */
+        }
+
+        /* Arrow positioning */
+        .back-home:before {
+            content: "← ";
+            /* Left arrow */
+            font-size: 1.5rem;
+            margin-right: 8px;
+        }
+
+        /* Responsive Design for Mobile */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            .back-home {
+                font-size: 1rem;
+            }
+
+            .back-home:before {
+                font-size: 1.3rem;
+            }
+        }
+
+
+        /* Footer Layout */
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            /* Spread columns evenly */
+            align-items: flex-start;
+            /* Align columns to the top */
+            gap: 20px;
+            /* Adds space between each column */
+            flex-wrap: wrap;
+            /* Ensures content wraps when necessary */
+            margin-bottom: 150px;
+        }
+
+        .footer-logo {
+            flex: 1;
+            /* Ensures logo occupies 1 part of the space */
+            min-width: 200px;
+            /* Makes sure the logo doesn't shrink too much */
+        }
+
+        .footer-column {
+            flex: 1;
+            /* Each column will occupy an equal amount of space */
+            min-width: 150px;
+            /* Prevents columns from shrinking below 150px */
+            margin-bottom: 20px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: pink;
+        }
+
+        /* Social and Copyright Section */
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            /* Space the elements horizontally */
+            align-items: center;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-bottom p {
+            margin: 0;
+            flex: 1;
+            text-align: left;
+            color: #fff;
+        }
+
+        .footer-policies {
+            flex: 1;
+            text-align: center;
+        }
+
+        .footer-policies a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-policies a:hover {
+            color: pink;
+        }
+
+        .social-icons {
+            flex: 1;
+            text-align: right;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            background-color: #444;
+            color: #fff;
+            text-align: center;
+            border-radius: 50%;
+            margin-left: 10px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: #ff007f;
+            color: #fff;
+        }
+
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: row;
+                /* Keeps the columns side by side even on smaller screens */
+                flex-wrap: wrap;
+                /* Allows wrapping on smaller screens */
+            }
+
+            .footer-column {
+                flex: 1 1 calc(50% - 20px);
+                /* Adjust to two columns in smaller screens */
+                margin-bottom: 20px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-bottom p,
+            .footer-policies,
+            .social-icons {
+                text-align: center;
+                margin-bottom: 10px;
+            }
+
+            .social-icons a {
+                margin: 0 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav id="navbar">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'Assest/blue.png' %}" alt="Navbar Image" class="navbar-image">
+            </a>
+            <div class="menu-icon" id="menu-icon">&#9776;</div>
+            <ul id="nav-links">
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'services' %}">Services</a></li>
+                <li><a href="{% url 'post_list' %}">Blog</a></li>
+                <li><a href="{% url 'book' %}" class="book-call">Book a Call</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+
+    <section id="contact">
+
+        <div class="text-container">
+            <h1>Thank You!</h1>
+            <p>Your project inquiry has been successfully submitted. We will get back to you soon.</p>
+            <a href="{% url 'index' %}" class="back-home">
+                &#8592; Return to home page
+            </a>
+        </div>
+
+        <!-- Stars in the background -->
+        <div class="star1"></div>
+        <div class="star2"></div>
+        <div class="star3"></div>
+
+
+    </section>
+
+    <!-- Footer section -->
+
+    <footer style="background-color: #1a1a1a; color: #fff; padding: 40px 20px;">
+        <div class="footer-content">
+            <!-- Logo Section -->
+            <div class="footer-logo">
+                <img src="{% static 'Assest/Numjin-logo.png' %}" alt="Company Logo" style="width: 100px;">
+                <address style="color: #bbb; margin-top: 20px;">
+                    54 Obio Imoh Street,<br>
+                    Uyo, Akwa Ibom State, 520101<br>
+                    Nigeria, +234 906 3632 388
+                </address>
+            </div>
+
+            <!-- Links Section -->
+            <div class="footer-links"
+                style="display: flex; flex: 3; justify-content: space-around; flex-wrap: wrap; min-width: auto;">
+                <div class="footer-column">
+                    <h3>Global</h3>
+                    <ul>
+                        <li><a href="#">Work</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Newsletter</a></li>
+                        <li><a href="#">News</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Technology</h3>
+                    <ul>
+                        <li><a href="#">Tech</a></li>
+                        <li><a href="#">Open Source</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Product Scope</a></li>
+                        <li><a href="#">UX/UI</a></li>
+                        <li><a href="#">MVP Builder</a></li>
+                        <li><a href="#">Dedicated Teams</a></li>
+                        <li><a href="#">Custom Software Development</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Build</h3>
+                    <ul>
+                        <li><a href="#">Play with Pricing</a></li>
+                        <li><a href="#">Book a Call</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social and Copyright Section -->
+        <div class="footer-bottom">
+            <p>© 2024 Numjinict.com.ng. All rights reserved.</p>
+            <div class="footer-policies">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Security</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=100063877700011&mibextid=ZbWKwL" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            const logo = document.querySelector('.navbar-image');
+
+            if (window.scrollY > 50) { // Adjust this value as needed
+                navbar.classList.add('scrolled');
+                logo.src = "../../static/Assest/blue.png"; // Path to the scrolled logo image
+            } else {
+                navbar.classList.remove('scrolled');
+                logo.src = "../../static/Assest/blue.png"; // Path to the original logo image
+            }
+        });
+
+        const menuIcon = document.getElementById("menu-icon");
+        const navLinks = document.getElementById("nav-links");
+
+        menuIcon.addEventListener("click", function () {
+            navLinks.classList.toggle("active");
+        });
+    </script>
+</body>
+
+</html>

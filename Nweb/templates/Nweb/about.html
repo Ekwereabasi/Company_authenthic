@@ -1,0 +1,1034 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>About</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+
+
+        /* Navbar */
+        #navbar {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10px;
+            background-color: transparent;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1000;
+        }
+
+        #navbar img.navbar-image {
+            height: 40px;
+        }
+
+        #navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 10px 10px;
+        }
+
+        #navbar.scrolled ul li a {
+            color: #000;
+        }
+
+        #navbar ul li a {
+            text-decoration: none;
+            color: black;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        #navbar ul li a:hover {
+            color: pink;
+        }
+
+
+        .book-call {
+            background-color: #ff4081;
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .book-call:hover {
+            background-color: deeppink;
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: rgb(107, 103, 103);
+
+        }
+
+
+        @media (min-width: 769px) {
+            #navbar ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                gap: 20px;
+            }
+        }
+
+
+        /* Media Query for smaller screens (up to 768px) */
+        @media (max-width: 768px) {
+            #navbar {
+                justify-content: space-between;
+            }
+
+            .menu-icon {
+                display: block;
+                margin-right: 30px;
+            }
+
+            /* Add this style to remove the bullet points */
+            #navbar ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            #navbar ul li a {
+                text-decoration: none;
+                color: black;
+                font-size: 16px;
+                transition: color 0.3s ease;
+            }
+
+            #nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: rgba(255, 255, 255, 0.9);
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                backdrop-filter: blur(10px);
+                padding: 10px;
+                z-index: 999;
+            }
+
+            #nav-links.active {
+                display: flex;
+            }
+
+            #navbar img.navbar-image {
+                height: 30px;
+            }
+
+            .book-call {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+        }
+
+
+
+        /* Header */
+
+        /* About Us Section */
+        .about-us {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            /* Align items to the bottom */
+            padding: 45px;
+            background-color: #f5f7fa;
+            /* Light background */
+            position: relative;
+            min-height: 600px;
+            /* Increase section height */
+            overflow: hidden;
+            /* Ensure image doesn't overflow */
+        }
+
+        /* Styling for the Heading */
+        .about-us h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: #0d0d33;
+            /* Dark text color */
+            line-height: 1.2;
+            margin-bottom: -2px;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        /* Styling for the paragraph */
+        .about-us p {
+            font-size: 1.2rem;
+            color: #666666;
+            font-weight: 400;
+            text-align: left;
+            margin-bottom: 150px;
+
+        }
+
+        /* Styling for the image */
+        .about-us-image {
+            max-width: 50%;
+            /* Enlarge the size of the image */
+            height: auto;
+            border-radius: 20px;
+            /* Slight curvature */
+            position: absolute;
+            /* Position image absolutely */
+            bottom: 0;
+            /* Align to the bottom */
+            right: 0;
+            /* Align to the right */
+            z-index: 2;
+            /* Ensure image is on top of shapes */
+            object-fit: cover;
+            /* Ensure the image fits the container */
+            /* Placeholder for rough border */
+        }
+
+        /* Slanted squares behind and around the image */
+        .about-us:before,
+        .about-us:after {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background-color: #ff007f;
+            /* Pink for one square */
+            border-radius: 15px;
+            /* Rounded edges */
+            transform: rotate(45deg);
+            /* Slanted square */
+            z-index: 1;
+            /* Behind the image */
+        }
+
+        /* First pink square behind the image */
+        .about-us:after {
+            background-color: #ff007f;
+            /* Pink */
+            bottom: 10px;
+            left: 55%;
+        }
+
+        /* Second purple square behind the image */
+        .about-us:before {
+            background-color: #800080;
+            /* Purple */
+            bottom: 80px;
+            left: 40%;
+            z-index: 1;
+        }
+
+        /* Slanted squares in front of the image */
+        .slanted-square {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 15px;
+            /* Rounded edges */
+            transform: rotate(45deg);
+            /* Slanted */
+            z-index: 3;
+            /* In front of the image */
+        }
+
+        /* Blue square in front of the image */
+        .slanted-square.blue {
+            background-color: #0000ff;
+            top: 100px;
+            left: 55%;
+            transform: translateX(-150%) rotate(45deg);
+        }
+
+        /* Orange square in front of the image */
+        .slanted-square.orange {
+            background-color: #ff9900;
+            top: 200px;
+            left: 65%;
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        /* Responsive Design for Smaller Screens */
+        @media (max-width: 768px) {
+            .about-us {
+                flex-direction: column;
+                /* Stack image and text */
+                align-items: center;
+                /* Center the content */
+                text-align: center;
+            }
+
+            .about-us h1 {
+                font-size: 2.5rem;
+                /* Reduce font size for smaller screens */
+                margin-top: 100px;
+            }
+
+            .about-us p {
+                font-size: 1rem;
+            }
+
+            .about-us-image {
+                max-width: 80%;
+                /* Adjust image size for mobile */
+                margin-top: 30px;
+            }
+
+
+            /* Slanted squares behind and around the image */
+            .about-us:before,
+            .about-us:after {
+                content: '';
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                background-color: #ff007f;
+                /* Pink for one square */
+                border-radius: 30px;
+                /* Rounded edges */
+                transform: rotate(45deg);
+                /* Slanted square */
+                z-index: 1;
+                /* Behind the image */
+            }
+
+            /* First pink square behind the image */
+            .about-us:after {
+                background-color: #ff007f;
+                /* Pink */
+                bottom: 150px;
+                left: 55%;
+            }
+
+            /* Second purple square behind the image */
+            .about-us:before {
+                background-color: #800080;
+                /* Purple */
+                bottom: 220px;
+                left: 20%;
+                z-index: 1;
+            }
+
+            /* Slanted squares in front of the image */
+            .slanted-square {
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                border-radius: 15px;
+                /* Rounded edges */
+                transform: rotate(45deg);
+                /* Slanted */
+                z-index: 3;
+                /* In front of the image */
+            }
+
+            /* Blue square in front of the image */
+            .slanted-square.blue {
+                background-color: #0000ff;
+                top: 100px;
+                left: 55%;
+                transform: translateX(-150%) rotate(45deg);
+            }
+
+            /* Orange square in front of the image */
+            .slanted-square.orange {
+                background-color: #ff9900;
+                top: 350px;
+                left: 65%;
+                transform: translateX(-50%) rotate(45deg);
+            }
+
+        }
+
+        /* Stat style */
+
+        .stats-about-section {
+            padding: 50px;
+            background-color: white;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-evenly;
+            margin-bottom: 50px;
+        }
+
+        .stat-box {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .stat-description {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #666;
+        }
+
+        /* Info section */
+        .info-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+        }
+
+        .info-text {
+            max-width: 50%;
+        }
+
+        .info-text h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #0d0d33;
+            margin-bottom: 20px;
+        }
+
+        .info-text p {
+            font-size: 1.2rem;
+            color: #666666;
+            font-weight: 400;
+            margin-bottom: 40px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ff007f;
+            border: 2px solid #ff007f;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #ff007f;
+            color: white;
+        }
+
+        /* Image styling */
+        .info-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .info-section {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .info-text {
+                max-width: 100%;
+            }
+
+            .info-image {
+                width: 100%;
+                margin-top: 30px;
+            }
+        }
+
+        /*History section*/
+
+        .History {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 50px;
+            gap: 20px;
+        }
+
+        .Building-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .History-intro {
+            max-width: 50%;
+        }
+
+        .History-intro h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #0d0d33;
+            margin-bottom: 20px;
+        }
+
+        .History-intro p {
+            font-size: 1.2rem;
+            color: #666666;
+            font-weight: 400;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .History {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .History-intro {
+                max-width: 100%;
+            }
+
+            .Building-image {
+                width: 100%;
+                margin-top: 30px;
+            }
+        }
+
+
+
+        /* Founder Styles */
+        .founders {
+            text-align: center;
+            padding: 50px;
+            background-color: #fff;
+        }
+
+        .founders-intro h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #191847;
+            margin-bottom: 20px;
+        }
+
+        .founders-intro p {
+            font-size: 16px;
+            color: #6d6e75;
+            max-width: 700px;
+            margin: 0 auto 50px;
+            line-height: 1.7;
+            text-align: center;
+        }
+
+
+        /* Founder Cards */
+        .founders-profiles {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .founder-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 220px;
+            margin-bottom: 30px;
+        }
+
+        .founder-card img {
+            border-radius: 10px;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .founder-card h3 {
+            font-size: 20px;
+            color: #191847;
+            margin-bottom: 5px;
+        }
+
+        .founder-card p {
+            font-size: 14px;
+            color: #6d6e75;
+            margin-bottom: 10px;
+        }
+
+        .linkedin-icon img {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .linkedin-icon:hover img {
+            transform: scale(1.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .founders-profiles {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .founder-card {
+                max-width: 100%;
+                margin-bottom: 30px;
+            }
+        }
+
+
+
+        /* Footer Layout */
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            /* Spread columns evenly */
+            align-items: flex-start;
+            /* Align columns to the top */
+            gap: 20px;
+            /* Adds space between each column */
+            flex-wrap: wrap;
+            /* Ensures content wraps when necessary */
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            flex: 1;
+            /* Ensures logo occupies 1 part of the space */
+            min-width: 200px;
+            /* Makes sure the logo doesn't shrink too much */
+        }
+
+        .footer-column {
+            flex: 1;
+            /* Each column will occupy an equal amount of space */
+            min-width: 150px;
+            /* Prevents columns from shrinking below 150px */
+            margin-bottom: 20px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: pink;
+        }
+
+        /* Social and Copyright Section */
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            /* Space the elements horizontally */
+            align-items: center;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-bottom p {
+            margin: 0;
+            flex: 1;
+            text-align: left;
+            color: #fff;
+        }
+
+        .footer-policies {
+            flex: 1;
+            text-align: center;
+        }
+
+        .footer-policies a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-policies a:hover {
+            color: pink;
+        }
+
+        .social-icons {
+            flex: 1;
+            text-align: right;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            background-color: #444;
+            color: #fff;
+            text-align: center;
+            border-radius: 50%;
+            margin-left: 10px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: #ff007f;
+            color: #fff;
+        }
+
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: row;
+                /* Keeps the columns side by side even on smaller screens */
+                flex-wrap: wrap;
+                /* Allows wrapping on smaller screens */
+            }
+
+            .footer-column {
+                flex: 1 1 calc(50% - 20px);
+                /* Adjust to two columns in smaller screens */
+                margin-bottom: 20px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-bottom p,
+            .footer-policies,
+            .social-icons {
+                text-align: center;
+                margin-bottom: 10px;
+            }
+
+            .social-icons a {
+                margin: 0 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav id="navbar">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'Assest/blue.png' %}" alt="Navbar Image" class="navbar-image">
+            </a>
+            <div class="menu-icon" id="menu-icon">&#9776;</div>
+            <ul id="nav-links">
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'services' %}">Services</a></li>
+                <li><a href="{% url 'post_list' %}">Blog</a></li>
+                <li><a href="{% url 'book' %}" class="book-call">Book a Call</a></li>
+            </ul>
+        </nav>
+
+
+        <!-- About Us Content -->
+        <div class="about-us">
+            <div class="about-us-text">
+                <h1>Our Team <br /> is Your Team</h1>
+                <p>Experience, Rigor, and a User-Centric Approach.</p>
+            </div>
+            <img src="{% static 'Assest/NewTeam.png' %}" alt="Our Team" class="about-us-image">
+
+            <!-- Slanted squares in front of the image -->
+            <div class="slanted-square blue"></div>
+            <div class="slanted-square orange"></div>
+        </div>
+    </header>
+
+    <!-- Information -->
+
+    <section class="stats-about-section" id="stats-about">
+        <div class="stats-container">
+            <!-- Stats Box 1 -->
+            <div class="stat-box">
+                <div class="stat-number" data-target="80">0</div>
+                <p class="stat-description">completed projects</p>
+            </div>
+            <!-- Stats Box 2 -->
+            <div class="stat-box">
+                <div class="stat-number" data-target="40">0</div>
+                <p class="stat-description">in-house specialists</p>
+            </div>
+            <!-- Stats Box 3 -->
+            <div class="stat-box">
+                <div class="stat-number" data-target="4.9">0</div>
+                <p class="stat-description">our Clutch score</p>
+            </div>
+        </div>
+
+        <!-- Information Section -->
+        <div class="info-section">
+            <div class="info-text">
+                <h1>OUR MISSION</h1>
+                <p>
+                    Numjin Tech And Digital Services is dedicated to empowering individuals and businesses with
+                    cutting-edge technology solutions. We strive to bridge the digital divide by providing accessible
+                    and reliable IT services that enhance productivity, efficiency, and innovation. Our mission is to be
+                    a trusted partner, delivering exceptional value and driving positive change through technology
+                </p>
+                <a href="{% url 'services' %}" class="cta-button">SEE OUR WORK</a>
+            </div>
+            <div class="info-image">
+                <img src="{% static 'Assest/InfoPic.png' %}" alt="Team working together" />
+            </div>
+        </div>
+    </section>
+
+    <!--History section-->
+    <section class="History">
+        <div class="History-intro">
+            <h2>Historical Background</h2>
+
+            <p>Numjin Tech And Digital Servics is a subsidiary of NUMJIN TECH,EDU AND ENERGY LTD Which was founded in
+                2019 with the vision of bridging the technological divide and empowering individuals and businesses in
+                Nigeria. Recognizing the immense potential of technology to drive progress and improve lives, the
+                company embarked on a journey to provide comprehensive IT solutions tailored to the unique needs of the
+                Nigerian market.
+
+                Inspired by the rapid advancements in technology and the increasing demand for reliable IT services,
+                Numjin Tech was established as a one-stop solution for all things tech. With a team of skilled
+                professionals and a passion for innovation, the company quickly gained a reputation for delivering
+                high-quality, efficient, and affordable services.
+
+                From its humble beginnings, Numjin Tech has grown into a leading provider of IT solutions, serving a
+                diverse clientele ranging from small businesses to large corporations. The company's commitment to
+                excellence and customer satisfaction has been instrumental in its success.
+
+            </p>
+        </div>
+
+        <div class="Building">
+            <!-- Building  -->
+            <div class="Building-image">
+                <img src="{% static 'Assest/Num_building.jpg' %}" alt="Numjin Building Image" />
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- Founder Section -->
+
+    <section class="founders">
+        <div class="founders-intro">
+            <h2>Meet the Founder</h2>
+
+            <p>Mr. Ndiana Okon Asuquo, a seasoned IT professional with over 10 years of experience, is the founder of
+                Numjin Tech and Digital Services. An entrepreneur and educator, he utilizes his M.Sc. in Computer
+                Science and vast IT certifications to deliver exceptional tech solutions. Actively involved in the
+                industry, he holds memberships in numerous professional bodies.
+                <a href="https://ndianaokonasuquo.ng">Read more about the founder</a>
+            </p>
+        </div>
+
+        <div class="founders-profiles">
+            <!-- Founder 1 -->
+            <div class="founder-card">
+                <img src="{% static 'Assest/Founder.jpg' %}" alt="Ndiana Okon Asuquo" />
+                <h3>Ndiana Okon Asuquo</h3>
+                <p>Founder & CEO</p>
+                <a href="https:www.linkedin.com/in/ndiana-asuquo-ek" target="_blank" class="linkedin-icon">
+                    <img src="{% static 'Assest/linkedin_icon.png' %}" alt="LinkedIn Icon">
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- Footer section -->
+
+    <footer style="background-color: #1a1a1a; color: #fff; padding: 40px 20px;">
+        <div class="footer-content">
+            <!-- Logo Section -->
+            <div class="footer-logo">
+                <img src="{% static 'Assest/Numjin-logo.png' %}" alt="Company Logo" style="width: 100px;">
+                <address style="color: #bbb; margin-top: 20px;">
+                    49 Udotung ubo Street,<br>
+                    Uyo, Akwa Ibom State, 520101<br>
+                    Nigeria, +234 906 3632 388
+                </address>
+            </div>
+
+            <!-- Links Section -->
+            <div class="footer-links"
+                style="display: flex; flex: 3; justify-content: space-around; flex-wrap: wrap; min-width: auto;">
+                <div class="footer-column">
+                    <h3>Global</h3>
+                    <ul>
+                        <li><a href="#">Work</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Newsletter</a></li>
+                        <li><a href="#">News</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Technology</h3>
+                    <ul>
+                        <li><a href="#">Tech</a></li>
+                        <li><a href="#">Open Source</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">School Management System</a></li>
+                        <li><a href="#">Business Website Development</a></li>
+                        <li><a href="#">Solar System Installation</a></li>
+                        <li><a href="#">CCTV Camera installation</a></li>
+                        <li><a href="#">Mobile Apps</a></li>
+                        <li><a href="#">Hostel/Hotel Management System</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Build</h3>
+                    <ul>
+                        <li><a href="#">Play with Pricing</a></li>
+                        <li><a href="#">Book a Call</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social and Copyright Section -->
+        <div class="footer-bottom">
+            <p>© 2024 Numjinict.com.ng. All rights reserved.</p>
+            <div class="footer-policies">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Security</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=100063877700011&mibextid=ZbWKwL" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script>
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            const logo = document.querySelector('.navbar-image');
+
+            if (window.scrollY > 50) { // Adjust this value as needed
+                navbar.classList.add('scrolled');
+                logo.src = '{% static 'Assest / blue.png' %}'; // Path to the scrolled logo image
+            } else {
+                navbar.classList.remove('scrolled');
+                logo.src = '{% static 'Assest / blue.png' %}'; // Path to the original logo image
+            }
+        });
+
+        const menuIcon = document.getElementById("menu-icon");
+        const navLinks = document.getElementById("nav-links");
+
+        menuIcon.addEventListener("click", function () {
+            navLinks.classList.toggle("active");
+        });
+
+
+
+        // Statistic
+
+        const counters = document.querySelectorAll('.stat-number');
+        const speed = 200; // You can adjust the speed of the counting
+
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+
+                const increment = target / speed;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(updateCount, 60);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+
+            updateCount();
+        });
+
+
+        document.getElementById('playButton').addEventListener('click', function () {
+            var video = document.getElementById('promoVideo');
+            var playButton = document.getElementById('playButton');
+
+            video.play();
+            playButton.style.display = 'none';
+        });
+    </script>
+</body>
+
+</html>
